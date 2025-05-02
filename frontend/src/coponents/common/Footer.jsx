@@ -47,9 +47,6 @@ const Footer = () => {
             <h4 className="footer-title">Payment Methods</h4>
             <div className="flex gap-4 mt-2">
                 <img src={PAYMENT_IMG} alt="Pay Methods" className="h-10" />
-              {/*<img src="/icons/visa.svg" alt="Visa" className="h-6" />
-              <img src="/icons/mastercard.svg" alt="MasterCard" className="h-6" />
-              <img src="/icons/paypal.svg" alt="PayPal" className="h-6" /> */}
             </div>
           </div>
         </div>
