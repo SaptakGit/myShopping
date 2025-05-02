@@ -1,8 +1,8 @@
 import React from 'react';
 import { DEMO_MEN_IMG,DEMO_WOMEN_IMG } from '../../utlis/constant';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import ProductCard from './ProductCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -87,33 +87,7 @@ const CrousalSection = ({headerCaption}) => {
             >
                 {products.map((product) => (
                 <SwiperSlide key={product.id}>
-                    <div className="bg-base-100 rounded-xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
-                    <div className="relative">
-                        <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-80 object-cover"
-                        />
-                        {product.sale && (
-                        <span className="absolute top-2 left-2 bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-                            Sale
-                        </span>
-                        )}
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                        <div>
-                        <p className="font-semibold text-sm">{product.name}</p>
-                        <p className="text-sm">
-                            {product.price}{' '}
-                            {product.originalPrice && (
-                            <span className="line-through text-gray-400 ml-2 text-xs">
-                                {product.originalPrice}
-                            </span>
-                            )}
-                        </p>
-                        </div>
-                    </div>
-                    </div>
+                    <ProductCard productItem={product}/>
                 </SwiperSlide>
                 ))}
             </Swiper>
