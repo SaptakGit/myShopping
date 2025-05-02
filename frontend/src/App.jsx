@@ -2,11 +2,12 @@ import Banner from './coponents/home/Banner'
 import Navbar from './coponents/common/Navbar'
 import Feature from './coponents/home/Feature'
 import Discount from './coponents/home/Discount'
-import 'swiper/css';
-import 'swiper/css/navigation';
 import NewsletterSection from './coponents/home/NewsletterSection'
 import Footer from './coponents/common/Footer'
 import CrousalSection from './coponents/home/CrousalSection'
+
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 
 
