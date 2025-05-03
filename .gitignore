@@ -51,6 +51,10 @@ admin/*.sln
 admin/*.sw?
 
 
+#admin server
+admin_server/node_modules
+
+
 shop
 test
 serect.md
