@@ -1,11 +1,11 @@
 const sequelize = require('../../config/mysql')
 
 // Models
-const AdminUser = require('./AdminUser')(sequelize)
+const adminUser = require("./adminUser")(sequelize)
 
 // Asociations
 
 
 module.exports = {
-    AdminUser
+    adminUser
 }

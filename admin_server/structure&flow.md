@@ -8,7 +8,11 @@ adminuser (mySql)
 user
     name
     email
+    phone
     password
+    gender
+    age
+    image
     is_active
     created
     updated
@@ -53,4 +57,90 @@ In Package.JSON
 in cmd
     npm start
     npm run dev
+
+for migration
+    npm install --save-dev sequelize-cli
+    npx sequelize-cli init
+
+    
+    project/
+        ├── config/
+        │   └── config.json
+        ├── migrations/
+        ├── models/
+        ├── seeders/
+        └── .sequelizerc (optional)
+
+    If you're using .env, modify config/config.json like this or use a custom config.js file:
+
+        require('dotenv').config();
+        module.exports = {
+        development: {
+            username: process.env.MYSQL_USER,
+            password: process.env.MYSQL_PASSWORD,
+            database: process.env.MYSQL_DB,
+            host: process.env.MYSQL_HOST,
+            dialect: 'mysql'
+        }
+        };
+
+    Create .sequelizerc file and add
+        const path = require('path');
+
+        module.exports = {
+            'config': path.resolve('config', 'config.js'),
+            'models-path': path.resolve('src/models/mysql'),
+            'seeders-path': path.resolve('seeders'),
+            'migrations-path': path.resolve('migrations')
+        };
+
+
+    npx sequelize-cli migration:generate --name create-user-table
+
+    Open the migration file and Update:
+
+    npx sequelize-cli db:migrate
+
+
+project/
+│
+├── .env
+├── .sequelizerc                  # Tells Sequelize CLI where to find stuff
+│
+├── config/                       # For Sequelize CLI config
+│   └── config.js                 # DB config (MySQL)
+│
+├── migrations/                   # Sequelize migrations
+│   └── xxxx-create-user.js
+│
+├── seeders/                      # Sequelize seeders
+│   └── xxxx-seed-users.js
+│
+├── model/                        # Sequelize initializer
+│   └── index.js                  # Loads models from src/models/mysql
+│
+├── src/
+│   ├── config/
+│   │   ├── mongo.js              # Mongoose connection logic
+│   │   └── mysql.js              # Optional Sequelize config (used programmatically)
+│   │
+│   ├── models/
+│   │   ├── mongo/
+│   │   │   ├── Categories.js
+│   │   │   └── Products.js
+│   │   │
+│   │   └── mysql/
+│   │       ├── AdminUser.js
+│   │       └── index.js          # Optional: Sequelize model loader from this folder
+│   │
+│   ├── routes/                   # Express routes (optional)
+│   │   └── ...
+│   │
+│   └── app.js                    # Main app entry point
+│
+└── package.json
+
+
+
+
 
