@@ -29,6 +29,7 @@ const Navbar = () => {
               {/* Sidebar content here */}
               <li><h1 className='text-xl'>Admin Menu</h1></li>
               <li><Link to='/dashboard'>Dashboard</Link></li>
+              <li><Link to='/category'>Category</Link></li>
               <li><Link to='/userlist'>Userlist</Link></li>
               <li><a onClick={handleLogout}>📴Logout</a></li>
             </ul>

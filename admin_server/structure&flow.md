@@ -16,7 +16,7 @@ user
     is_active
     created
     updated
-categories
+categories (mongoDb)
     name
     img
     is_active
@@ -100,6 +100,19 @@ for migration
     Open the migration file and Update:
 
     npx sequelize-cli db:migrate
+
+for file uplead 
+    we will use multer (middleware for handling multipart/form-data)
+
+    npm install multer
+
+    project/
+    ├── uploads/             ← Uploaded images stored here
+    │   └── categories/
+
+
+
+
 
 
 project/

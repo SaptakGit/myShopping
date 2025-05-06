@@ -3,6 +3,7 @@ import Login from './component/Login'
 import Navbar from './component/Navbar'
 import Body from './component/Body'
 import Dashboard from './component/Dashboard'
+import Category from './component/Category'
 
 function App() {
   
@@ -15,7 +16,8 @@ function App() {
       path: '/',
       element: <><Navbar/><Body/></>,
       children: [
-        { path: '/dashboard', element: <Dashboard/>}
+        { path: '/dashboard', element: <Dashboard/>},
+        { path: '/category', element: <Category/>}
       ] 
     }
   ])
