@@ -1,7 +1,6 @@
 const Category = require('../models/mongo/categories')
 
 const createCategory = async (req, res) =>{
-   // console.log(req.body);
     try{
         const { categoryName, isActive } = req.body
         if(!categoryName || !req.file){
@@ -17,7 +16,6 @@ const createCategory = async (req, res) =>{
         })
 
         const saveData = await category.save()
-        //console.log(saveData)
 
         return res.status(201).json({message: 'Category Created'})
     } catch(err){
