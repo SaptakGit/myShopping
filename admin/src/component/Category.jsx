@@ -1,75 +1,80 @@
-//import axios from 'axios';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import CategoryListRow from './CategoryListRow';
+import CategoryListPagination from './CategoryListPagination';
+import CreateCategory from './CreateCategory';
 //import { BASE_URL, BEARER_TOKEN } from '../utlis/constants';
-//import UserListRow from './UserListRow';
 //import UserListPagination from './UserListPagination';
 
 const Category = () => {
 
-  const [ allUserListData, setAllUserListData ] = useState([]);
-  const [ totalUser, setTotalUser ] = useState(0);
-  const [ userLimit, setUserLimit ] = useState(0);
+  const [ allCategoryListData, setAllCategoryListData ] = useState([]);
+  const [ totalCategory, setTotalCategory ] = useState(0);
+  const [ catListLimit, setCatListLimit ] = useState(0);
 
-  const getAllUserList = async (currPage = 1) => {
+  const getAllCategoryList = async (currPage = 1) => {
     try{
-      /*const res = await axios.get(BASE_URL+"/userlist",{
-        headers:{
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/categorylist`,{
+        /*headers:{
           Authorization : `Bearer ${BEARER_TOKEN}`
-        },
+        },*/
         params: {
           limit: 10,
           page: currPage
          },
         withCredentials : true
       })
-      setAllUserListData(res);
-      setTotalUser(res.data.totalUser);
-      setUserLimit(res.data.limit)*/
+      //console.log(res.data.categoryList)
+      setAllCategoryListData(res);
+      setTotalCategory(res.data.totalCategory);
+      setCatListLimit(res.data.limit)
     } catch(err){
       console.log(err);
     }
   }
-
+  
   useEffect(()=>{
-    getAllUserList()
+    getAllCategoryList()
   },[])
   
+  
   return (
-    <div className='mx-20 my-10'>
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <th>Name</th>
-              <th>email</th>
-              <th>Gender</th>
-              <th>Age</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-                      
-            {/* row 1 */}
-            {/*allUserListData.data && allUserListData.data.userList.map((user, index) => 
-              (<UserListRow userinfo={user} key={user._id} />)
-            )*/
-          }
-          </tbody>
-          {/* foot */}
-          <tfoot>
-            {/*allUserListData.data && 
-              <UserListPagination allUserCount={totalUser} userLimit={userLimit} getAllUserListFunc={getAllUserList} />
-            */}
-          </tfoot>
-        </table>
+    <>
+      <div className='mx-20 my-10'>
+        <CreateCategory />
+      <div className="divider"></div>
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>
+                  <label>
+                    <input type="checkbox" className="checkbox" />
+                  </label>
+                </th>
+                <th>Category Image</th>
+                <th>Category Name</th>
+                <th>Category Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              {allCategoryListData.data && allCategoryListData.data.categoryList.map((category, index) => 
+                (<CategoryListRow catinfo={category} key={category._id}/>)
+              )
+            }
+            </tbody>
+            {/* foot */}
+            <tfoot>
+              {allCategoryListData.data && <CategoryListPagination allCategoryCount={totalCategory} categoryLimit={catListLimit} getAllCategorListFunc={getAllCategoryList} />
+              }
+            </tfoot>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

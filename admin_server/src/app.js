@@ -1,10 +1,19 @@
 const express = require("express")
 const app = express()
+const cors = require('cors')
 require('dotenv').config()
+const path = require('path');
 
 const connectMongo = require('./config/mongo')
 
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+})); // whitelisting the frontend url
 app.use(express.json()) // body parser
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));  // serve the uploads folder statically
+
+
 
 // Routes
 const categoryRoutes = require('./routes/categoryRoutes')

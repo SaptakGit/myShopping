@@ -35,10 +35,12 @@ const getCategoryList = async (req, res) => {
             $and:[
                 { isActive : 1}
             ]
-        }*/);
+        }*/).sort({_id: -1}).skip(skip).limit(limit);
+
+        const totalCategoryList = await Category.find();
 
         if(categoryList.length > 0){
-            res.status(200).json({status:true, categoryList:categoryList, totalCategory:categoryList.length, limit:limit, offset:skip})
+            res.status(200).json({status:true, categoryList:categoryList, totalCategory:totalCategoryList.length, limit:limit, offset:skip})
         }else{
             res.status(400).json({status:false, message: 'No Category Found'})
         }

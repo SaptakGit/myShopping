@@ -101,7 +101,7 @@ for migration
 
     npx sequelize-cli db:migrate
 
-for file uplead 
+for file upload 
     we will use multer (middleware for handling multipart/form-data)
 
     npm install multer
@@ -110,6 +110,8 @@ for file uplead
     ├── uploads/             ← Uploaded images stored here
     │   └── categories/
 
+for CORS 
+    npm install cors
 
 
 
