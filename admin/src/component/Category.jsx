@@ -41,7 +41,7 @@ const Category = () => {
   return (
     <>
       <div className='mx-20 my-10'>
-        <CreateCategory />
+        <CreateCategory newCategoryListFnc={getAllCategoryList} />
       <div className="divider"></div>
         <div className="overflow-x-auto">
           <table className="table">

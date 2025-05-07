@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
-const CreateCategory = () => {
+const CreateCategory = ({newCategoryListFnc}) => {
+
+
 
     const [categoryName, setCategoryName] = useState("");
     const [categoryPhoto, setCategoryPhoto] = useState(null);
@@ -19,6 +22,7 @@ const CreateCategory = () => {
           setCategoryName("");
           setCategoryPhoto(null);
           alert('Category Created');
+          newCategoryListFnc()
         }
         catch(err){
           console.error(err);
