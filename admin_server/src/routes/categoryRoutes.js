@@ -6,5 +6,6 @@ const uploadCatImg = require('../middleware/uploadCategoryPhoto')
 
 router.post('/category', uploadCatImg.single('categoryPhoto'), CategoryController.createCategory)
 router.get('/categorylist', CategoryController.getCategoryList)
+router.get('/activecatist', CategoryController.activeCategoryList)
 
 module.exports = router

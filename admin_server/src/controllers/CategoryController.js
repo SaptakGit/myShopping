@@ -42,15 +42,34 @@ const getCategoryList = async (req, res) => {
         if(categoryList.length > 0){
             res.status(200).json({status:true, categoryList:categoryList, totalCategory:totalCategoryList.length, limit:limit, offset:skip})
         }else{
-            res.status(400).json({status:false, message: 'No Category Found'})
+            res.status(200).json({status:false, message: 'No Category Found'})
         }
     }
     catch(err){
-        res.status(400).json({messahe:err.message})
+        res.status(400).json({message:err.message})
+    }
+}
+
+const activeCategoryList = async (req, res) => {
+    try{
+        const activeCategory = await Category.find({
+            $and:[
+                {isActive : true}
+            ]
+        })
+
+        if(activeCategory.length > 0){
+            res.status(200).json({status:true, activeCategory:activeCategory})
+        }else{
+            res.status(200).json({status:false, activeCategory:''})
+        }
+    }catch(err){
+        res.status(400).json({message:err.message})
     }
 }
 
 module.exports = {
     createCategory,
-    getCategoryList
+    getCategoryList,
+    activeCategoryList
 }

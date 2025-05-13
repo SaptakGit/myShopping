@@ -3,7 +3,8 @@ import Login from './component/Login'
 import Navbar from './component/Navbar'
 import Body from './component/Body'
 import Dashboard from './component/Dashboard'
-import Category from './component/Category'
+import Category from './component/category/Category'
+import Product from './component/product/Product'
 
 function App() {
   
@@ -17,7 +18,8 @@ function App() {
       element: <><Navbar/><Body/></>,
       children: [
         { path: '/dashboard', element: <Dashboard/>},
-        { path: '/category', element: <Category/>}
+        { path: '/category', element: <Category/>},
+        { path: '/product', element: <Product/>}
       ] 
     }
   ])

@@ -5,8 +5,11 @@ import Discount from './coponents/home/Discount'
 import NewsletterSection from './coponents/home/NewsletterSection'
 import Footer from './coponents/common/Footer'
 import CrousalSection from './coponents/home/CrousalSection'
+
 import 'swiper/css';
 import 'swiper/css/navigation';
+
+
 
 function App() {
 
@@ -14,22 +17,31 @@ function App() {
     <>
       {/* Block 1: Navbar */}
       <Navbar/>
+
       {/* Block 2: Hero Section (Big Banner) */}
       <Banner />
+
       {/* Block 3: Features (Shipping, Payment, Return, etc.) */}
       <Feature/>
+
       {/* Block 4: Trending Now Section (Products on Sale) */}
-      <CrousalSection headerCaption={'Trending Now'} dataSection=''/>
+      <CrousalSection headerCaption={'Trending Now'}/>
+
       {/* Block 5: Shop By Categories Section */}
-      <CrousalSection headerCaption={'Shop By Categories'} dataSection=''/>
+      <CrousalSection headerCaption={'Shop By Categories'}/>
+
       {/* Block 6: 50% OFF Promo Banner */}
       <Discount/>
+
       {/* Block 7: New Arrivals Section */}
-      <CrousalSection headerCaption={'New Arrivals'} dataSection=''/>
+      <CrousalSection headerCaption={'New Arrivals'}/>
+
       {/* Block 8: Newsletter Subscription Banner */}
       <NewsletterSection/>
+
       {/* Block 9: Footer */}
       <Footer/>
+
     </>
   )
 }
