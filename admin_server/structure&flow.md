@@ -114,6 +114,11 @@ for CORS
     npm install cors
 
 
+For Auth
+    npm install jsonwebtoken bcryptjs
+
+
+
 
 
 

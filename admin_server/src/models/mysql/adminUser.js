@@ -31,7 +31,7 @@ const adminUser = sequelize.define('admin_users', {
         },
         {
             tableName: 'admin_users',
-            timestamps: true,
+            timestamps: false,
         }
     )
 

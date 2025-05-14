@@ -11,8 +11,9 @@ const Category = () => {
   const [ allCategoryListData, setAllCategoryListData ] = useState([]);
   const [ totalCategory, setTotalCategory ] = useState(0);
   const [ catListLimit, setCatListLimit ] = useState(0);
+  const [ currentPage, setCurrentPage ] = useState(1);
 
-  const getAllCategoryList = async (currPage = 1) => {
+  const getAllCategoryList = async (currentPage) => {
     try{
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/categorylist`,{
         /*headers:{
@@ -20,7 +21,7 @@ const Category = () => {
         },*/
         params: {
           limit: 10,
-          page: currPage
+          page: currentPage
          },
         withCredentials : true
       })
@@ -62,13 +63,13 @@ const Category = () => {
             <tbody>
               {/* row 1 */}
               {allCategoryListData.data && allCategoryListData.data.categoryList.map((category, index) => 
-                (<CategoryListRow catinfo={category} key={category._id}/>)
+                (<CategoryListRow catinfo={category} key={category._id} catListFnc={getAllCategoryList} currPage={currentPage}/>)
               )
             }
             </tbody>
             {/* foot */}
             <tfoot>
-              {allCategoryListData.data && <CategoryListPagination allCategoryCount={totalCategory} categoryLimit={catListLimit} getAllCategorListFunc={getAllCategoryList} />
+              {allCategoryListData.data && <CategoryListPagination allCategoryCount={totalCategory} categoryLimit={catListLimit} getAllCategorListFunc={getAllCategoryList} setCurrPage={setCurrentPage} />
               }
             </tfoot>
           </table>

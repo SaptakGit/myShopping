@@ -68,8 +68,34 @@ const activeCategoryList = async (req, res) => {
     }
 }
 
+const changeStatus = async (req, res) => {
+    try{
+        //console.log(req.body)
+        const id = req.body.catId
+        const catStatus = req.body.catStatus
+
+        let setStatus = catStatus === false ? true : false;
+
+         const resUpdStatus = await Category.findByIdAndUpdate(
+            id,
+            {$set : {isActive :setStatus}},
+            {new : true}
+        )
+
+        if (!resUpdStatus) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        //console.log('Updated:', resUpdStatus);
+        res.status(200).json({ message: 'Category status updated', category: resUpdStatus });
+    }catch(err){
+        console.error(err)
+    }
+}
+
 module.exports = {
     createCategory,
     getCategoryList,
-    activeCategoryList
+    activeCategoryList,
+    changeStatus
 }

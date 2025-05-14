@@ -1,4 +1,4 @@
-const CategoryListPagination = ({allCategoryCount, categoryLimit, getAllCategorListFunc}) => {
+const CategoryListPagination = ({allCategoryCount, categoryLimit, getAllCategorListFunc, setCurrPage}) => {
 
   const totalPages = Math.ceil(allCategoryCount/categoryLimit)
   const totalPagesArray = Array.from({length: totalPages}, (_,i) => i + 1);
@@ -12,7 +12,7 @@ const CategoryListPagination = ({allCategoryCount, categoryLimit, getAllCategorL
               <th className='text-center' colSpan={5}>
                 <div className="join">
                   {totalPagesArray.map((page,index) =>{
-                      return <input className="join-item btn btn-square" type="radio" name="options" aria-label={page} key={page} onClick={() => paginateClick(page)} />
+                      return <input className="join-item btn btn-square" type="radio" name="options" aria-label={page} key={page} onClick={() => {setCurrPage(page); paginateClick(page)}} />
                   })}
                 </div>
               </th>
