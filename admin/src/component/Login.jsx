@@ -1,28 +1,26 @@
 import { useState } from "react";
-//import axios from "axios";
+import axios from "axios";
 //import { BASE_URL } from "../utlis/constants";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [emailId, setemailId] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
     const navigate = useNavigate();
 
     const handelLogin = async () => {
-        console.log(emailId+' '+password);
-
-        /*try{
-            const res = await axios.post(BASE_URL+"/login",{emailId, password},{withCredentials:true});
-            if(res.data.status){
+        try{
+            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/login`,{email, password},{withCredentials:true});
+            if(res.data.token){
                 localStorage.setItem('token',res.data.token);
                 return navigate("/dashboard");
             }else{
                 setErrMsg(res.data.message);
             }
         }catch(err){
-            setErrMsg(err.message)
-        }*/
+            setErrMsg(err?.response?.data?.message || 'Something went wrong')
+        }
     } 
 
     return(
@@ -31,7 +29,7 @@ const Login = () => {
                 <div className="card-body">
                     <h2 className="card-title justify-center text-3xl">Login</h2>
                     <div>
-                        <input type="text" name="uname" value={emailId} onChange={(e) => setemailId(e.target.value)} className="input input-bordered w-full max-w-xs mb-5" />
+                        <input type="text" name="uname" value={email} onChange={(e) => setEmail(e.target.value)} className="input input-bordered w-full max-w-xs mb-5" />
                         <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input input-bordered w-full max-w-xs" />
                     </div>
                     <p>{errMsg}</p>

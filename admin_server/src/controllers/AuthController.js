@@ -1,20 +1,21 @@
 const AdminUser = require('../models/mysql/adminUser')
 const jwt = require('jsonwebtoken')
-const bycript = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 
 const adminLogin = async (req, res) => {
     try{
         const {email, password} = req.body;
+        console.log(email+' '+password)
         const adminUser = await AdminUser.findOne({where:{email}});
 
         if(!adminUser){
-            return res.status(401).json({message:"Invalid Username or Password"})
+            return res.status(401).json({message:"Invalid Username"})
         }
-
-        const isMatch = await bycript.compare(password, adminUser.password)
+          
+        const isMatch = await bcrypt.compare(password, adminUser.password)
 
         if(!isMatch){
-            return res.status(401).json({message:"Invalid Username or Password"})
+            return res.status(401).json({message:"Invalid Password"})
         }
 
         const token = jwt.sign(
