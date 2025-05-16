@@ -2,20 +2,20 @@ const multer = require('multer')
 const path = require('path')
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        cb(null,'uploads/categories/')
+    destination: (req, file, cb) => {
+        cb(null,'uploads/products/')
     },
-    filename:(req, file, cb)=>{
-        //console.log(req.body)
-        const uniqueName = Date.now()+'-'+req.body.categoryName+path.extname(file.originalname);
-        cb(null, uniqueName); 
+    filename:(req, file, cb) => {
+        const uniqueName = Date.now()+'-'+req.body.productName+path.extname(file.originalname);
+        cb(null,uniqueName)
     }
 });
 
+
 const upload = multer({
     storage:storage,
-    limits: {fileSize: 5 * 1024 * 1024},  // 5MB
-    fileFilter: (req, file, cb) => {
+    limits: {fileSize: 5 * 24 * 24},
+    fileFilter: (req, res, cb) => {
         const allowedTypes = /jpeg|jpg|png/;
         const ext = allowedTypes.test(path.extname(file.originalname).toLocaleLowerCase());
         const mime = allowedTypes.test(file.mimetype);

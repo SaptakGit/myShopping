@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { BEARER_TOKEN } from "../../utlis/consttant";
 
 const AddProduct = () => {
     const [ categoryList, setCategoryList ] = useState([])
     const [ productName, setProductName ] = useState('')
     const [ productPhoto, setProductPhoto ] = useState(null)
-    const [ categoryName, setCategoryName ] = useState('')
+    const [ categoryName, setCategoryName ] = useState('Category Name')
     const [ productPrice, setProductPrice ] = useState('')
     const [ offerPrice, setOfferPrice ] = useState('')
     const [ productQuantity, setProductQuantity ] = useState('')
@@ -16,6 +17,9 @@ const AddProduct = () => {
     const getCatList = async () => {
       try{
         const resCatList = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/activecatist`,{
+          headers:{
+                    Authorization : `Bearer ${BEARER_TOKEN}`
+                  },
           withCredentials:true
         });
         setCategoryList(resCatList.data);
@@ -39,7 +43,7 @@ const AddProduct = () => {
             <h2 className='mb-4 text-2xl font-semibold'>Add Product</h2>
             <input type="text" placeholder="Product Name" className="w-full max-w-xs mr-5 mb-5 input" value={productName} onChange={(e) => setProductName(e.target.value)}/>
             <input type="file" className="w-full max-w-xs mr-5 mb-5 file-input" onChange={(e) => setProductPhoto(e.target.files[0])}/>
-            <select defaultValue="Category Name" className="select select-neutral mr-5 mb-5" value={categoryName} onChange={(e) => setCategoryName(e.target.value)}>
+            <select className="select select-neutral mr-5 mb-5" value={categoryName} onChange={(e) => setCategoryName(e.target.value)}>
                 <option disabled={true}>Category Name</option>
                 {categoryList?.activeCategory?.length > 0 ? (
                   categoryList.activeCategory.map((cat) => (

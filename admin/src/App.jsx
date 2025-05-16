@@ -18,9 +18,12 @@ function App() {
       path: '/',
       element: <Layout/>,
       children: [
-        { path: '/dashboard', element: <CheckAuth childern={<Dashboard/>}><Dashboard/></CheckAuth>},
+        /*{ path: '/dashboard', element: <CheckAuth childern={<Dashboard/>}><Dashboard/></CheckAuth>},
         { path: '/category', element:<CheckAuth childern={<Category/>}><Category/></CheckAuth>},
-        { path: '/product', element:<CheckAuth childern={<Product/>}><Product/></CheckAuth>}
+        { path: '/product', element:<CheckAuth childern={<Product/>}><Product/></CheckAuth>}*/
+         { path: '/dashboard', element: <Dashboard/>},
+        { path: '/category', element:<Category/>},
+        { path: '/product', element:<Product/>}
       ] 
     }
   ])

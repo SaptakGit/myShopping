@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import AddProduct from "./AddProduct"
 
 const Product = () => {
+
+    const [ productList, setProductList ] = useState([]);
+
+    const getProductList = () => {
+      console.log('123');
+    }
+
+    useEffect(()=>{
+      productList
+    },[])
+
     return(
             <>
               <div className='mx-20 my-10'>
