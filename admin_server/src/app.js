@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 require('dotenv').config()
 const path = require('path');
+const auth = require('../src/middleware/authMiddleware')
 
 const connectMongo = require('./config/mongo')
 
@@ -20,7 +21,7 @@ const authRouters = require('./routes/authRoute')
 const categoryRoutes = require('./routes/categoryRoutes')
 
 app.use('/admin/api', authRouters)
-app.use('/admin/api', categoryRoutes)
+app.use('/admin/api',auth, categoryRoutes)
 
 connectMongo()
         .then(() => {

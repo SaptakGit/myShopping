@@ -16,7 +16,13 @@ const CreateCategory = ({newCategoryListFnc}) => {
         formData.append('categoryPhoto',categoryPhoto);
         
         try{
-          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/category`,formData);
+          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/category`,{
+            headers:{
+                      Authorization : `Bearer ${BEARER_TOKEN}`
+                    },
+            formData,
+            withCredentials: true
+          });
     
           //console.log(res);
           setCategoryName("");

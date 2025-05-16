@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import CategoryListRow from './CategoryListRow';
 import CategoryListPagination from './CategoryListPagination';
 import CreateCategory from './CreateCategory';
-//import { BASE_URL, BEARER_TOKEN } from '../utlis/constants';
+import { BEARER_TOKEN } from '../../utlis/consttant';
 //import UserListPagination from './UserListPagination';
 
 const Category = () => {
+
+  console.log('✅ Category component mounted');
 
   const [ allCategoryListData, setAllCategoryListData ] = useState([]);
   const [ totalCategory, setTotalCategory ] = useState(0);
@@ -16,9 +18,9 @@ const Category = () => {
   const getAllCategoryList = async (currentPage) => {
     try{
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/categorylist`,{
-        /*headers:{
+        headers:{
           Authorization : `Bearer ${BEARER_TOKEN}`
-        },*/
+        },
         params: {
           limit: 10,
           page: currentPage

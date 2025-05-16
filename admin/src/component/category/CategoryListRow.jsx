@@ -7,7 +7,14 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
 
     const changeStatus = async (catId, catStatus) => {
       try{
-        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,{catId, catStatus},{withCredentials: true})
+        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,{
+          headers:{
+                    Authorization : `Bearer ${BEARER_TOKEN}`
+                  },
+          catId, 
+          catStatus, 
+          withCredentials: true
+        })
         if(resStatus){
           catListFnc(currPage)
         }
