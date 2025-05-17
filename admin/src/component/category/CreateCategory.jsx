@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { BEARER_TOKEN } from '../../utlis/consttant'
 
 const CreateCategory = ({newCategoryListFnc}) => {
-
-
 
     const [categoryName, setCategoryName] = useState("");
     const [categoryPhoto, setCategoryPhoto] = useState(null);
@@ -16,13 +15,15 @@ const CreateCategory = ({newCategoryListFnc}) => {
         formData.append('categoryPhoto',categoryPhoto);
         
         try{
-          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/category`,{
-            headers:{
-                      Authorization : `Bearer ${BEARER_TOKEN}`
-                    },
+          const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/category`,
             formData,
-            withCredentials: true
-          });
+            {
+              headers:{
+                  Authorization : `Bearer ${BEARER_TOKEN}`
+                },
+            },
+            {withCredentials: true}
+          );
     
           //console.log(res);
           setCategoryName("");

@@ -6,16 +6,15 @@ const storage = multer.diskStorage({
         cb(null,'uploads/products/')
     },
     filename:(req, file, cb) => {
-        const uniqueName = Date.now()+'-'+req.body.productName+path.extname(file.originalname);
+        const uniqueName = Date.now()+'-'+req.body.productName+path.extname(file.originalname); 
         cb(null,uniqueName)
     }
 });
 
-
 const upload = multer({
     storage:storage,
-    limits: {fileSize: 5 * 24 * 24},
-    fileFilter: (req, res, cb) => {
+    limits: {fileSize: 5 * 1024 * 1024},
+    fileFilter: (req, file, cb) => {
         const allowedTypes = /jpeg|jpg|png/;
         const ext = allowedTypes.test(path.extname(file.originalname).toLocaleLowerCase());
         const mime = allowedTypes.test(file.mimetype);

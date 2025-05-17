@@ -3,14 +3,14 @@ import AddProduct from "./AddProduct"
 
 const Product = () => {
 
-    const [ productList, setProductList ] = useState([]);
+    //const [ productList, setProductList ] = useState([]);
 
     const getProductList = () => {
       console.log('123');
     }
 
     useEffect(()=>{
-      productList
+      getProductList
     },[])
 
     return(

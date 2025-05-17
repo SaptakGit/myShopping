@@ -18,12 +18,12 @@ function App() {
       path: '/',
       element: <Layout/>,
       children: [
-        /*{ path: '/dashboard', element: <CheckAuth childern={<Dashboard/>}><Dashboard/></CheckAuth>},
-        { path: '/category', element:<CheckAuth childern={<Category/>}><Category/></CheckAuth>},
-        { path: '/product', element:<CheckAuth childern={<Product/>}><Product/></CheckAuth>}*/
-         { path: '/dashboard', element: <Dashboard/>},
+        { path: '/dashboard', element: <CheckAuth><Dashboard/></CheckAuth>},
+        { path: '/category', element:<CheckAuth><Category/></CheckAuth>},
+        { path: '/product', element:<CheckAuth><Product/></CheckAuth>}
+         /*{ path: '/dashboard', element: <Dashboard/>},
         { path: '/category', element:<Category/>},
-        { path: '/product', element:<Product/>}
+        { path: '/product', element:<Product/>}*/
       ] 
     }
   ])

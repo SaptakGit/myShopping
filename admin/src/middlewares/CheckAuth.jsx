@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
-const CheckAuth = ({childern}) => {
-    console.log(childern)
+const CheckAuth = (props) => {
+    const {children} = props
     console.log('🛡️ CheckAuth loaded');
     const token = localStorage.getItem('token');
 
@@ -9,7 +9,9 @@ const CheckAuth = ({childern}) => {
         return <Navigate to="/" replace />;
     }
     console.log('✅ Token found, rendering children');
-    return childern
+    return <>
+    {children}
+    </>
 }
 
 export default CheckAuth;

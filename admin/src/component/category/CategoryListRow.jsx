@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BEARER_TOKEN } from '../../utlis/consttant'
 
 const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
 
@@ -7,14 +8,15 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
 
     const changeStatus = async (catId, catStatus) => {
       try{
-        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,{
-          headers:{
-                    Authorization : `Bearer ${BEARER_TOKEN}`
-                  },
-          catId, 
-          catStatus, 
-          withCredentials: true
-        })
+        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,
+          {catId, catStatus}, 
+          {
+            headers:{
+              Authorization : `Bearer ${BEARER_TOKEN}`
+            }
+          },
+          {withCredentials: true}
+        )
         if(resStatus){
           catListFnc(currPage)
         }
@@ -26,8 +28,8 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
     
     return(
         <tr>
-                <th>
-                  <label>
+          <th>
+            <label>
                     <input type="checkbox" className="checkbox" />
                   </label>
                 </th>
@@ -48,8 +50,8 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
                 </td>
                 <td>
                   <div className="dropdown dropdown-right">
-                    <div tabIndex={0} role="button" className="btn btn-info m-1">Action</div>
-                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                    <div tabIndex={0} role="button" className="m-1 btn btn-info">Action</div>
+                    <ul tabIndex={0} className="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
                       <li><a> ✒️ Edit</a></li>
                       <li><a> 🗑️ Delete</a></li>
                     </ul>

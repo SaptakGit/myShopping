@@ -19,9 +19,11 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));  // ser
 // Routes
 const authRouters = require('./routes/authRoute')
 const categoryRoutes = require('./routes/categoryRoutes')
+const productReoutes = require('./routes/productRoutes')
 
 app.use('/admin/api', authRouters)
 app.use('/admin/api',auth, categoryRoutes)
+app.use('/admin/api',auth, productReoutes)
 
 connectMongo()
         .then(() => {
