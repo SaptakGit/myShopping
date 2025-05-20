@@ -1,22 +1,54 @@
 import { useEffect } from "react";
 import AddProduct from "./AddProduct"
+import { BEARER_TOKEN } from "../../utlis/consttant";
+import { useState } from "react";
+import axios from 'axios'
+import ProductListRow from "./ProductListRow";
+import ProductListPagination from "./ProductListPagination";
 
 const Product = () => {
 
-    //const [ productList, setProductList ] = useState([]);
+    const [ productList, setProductList ] = useState([]);
+    const [ totalProduct, setTotalProduct ] = useState(0);
+    const [ currentPage, setCurrentPage ] = useState(1);
+    const [ prodListLimit, setProdListLimit ] = useState(0);
 
-    const getProductList = () => {
-      console.log('123');
+    const getProductList = async (currentPage) => {
+
+      try{
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/productlist`,
+          {
+            headers: {
+              Authorization : `Bearer ${BEARER_TOKEN}`
+            }
+          },
+          {
+            params:{
+              limit : 10,
+              page: currentPage
+            }
+          },
+          { withCredentials: true }
+        );
+
+        setProductList(res);
+        setTotalProduct(res.data.totalProductList);
+        setProdListLimit(res.data.limit);
+
+
+      }catch(err){
+        console.log(err)
+      }
     }
 
     useEffect(()=>{
-      getProductList
+      getProductList()
     },[])
 
     return(
             <>
               <div className='mx-20 my-10'>
-                 <AddProduct/>
+                 <AddProduct addgetProductListFnc={getProductList}/>
               <div className="divider"></div>
                 <div className="overflow-x-auto">
                   <table className="table">
@@ -42,15 +74,15 @@ const Product = () => {
                     </thead>
                     <tbody>
                       {/* row 1 */}
-                      {/*allCategoryListData.data && allCategoryListData.data.categoryList.map((category, index) => 
-                        (<CategoryListRow catinfo={category} key={category._id}/>)
+                      {productList.data && productList.data.productList.map((product, index) => 
+                        (<ProductListRow productinfo={product} key={product._id} prodListFnc={getProductList} currPage={currentPage}/>)
                       )
-                    */}
+                    }
                     </tbody>
                     {/* foot */}
                     <tfoot>
-                      {/*allCategoryListData.data && <CategoryListPagination allCategoryCount={totalCategory} categoryLimit={catListLimit} getAllCategorListFunc={getAllCategoryList} />
-                      */}
+                      {productList.data && <ProductListPagination allProductCount={totalProduct} productLimit={prodListLimit} getAllProductListFunc={getProductList} setCurrPage={setCurrentPage} />
+                      }
                     </tfoot>
                   </table>
                 </div>

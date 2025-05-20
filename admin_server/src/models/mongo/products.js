@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema(
             reuired: true
         },
         categoryId:{
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Category',
             required: true,
         },
         productPrice:{
@@ -28,11 +29,13 @@ const productSchema = new mongoose.Schema(
         },
         productNew:{
             type: Boolean,
-            required: true,
+            required: false,
+            default: false
         },
         productTrending:{
             type: Boolean,
-            required: true,
+            required: false,
+            default: false
         },
         productStatus: {
             type: Boolean,

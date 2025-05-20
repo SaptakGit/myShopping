@@ -2,17 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { BEARER_TOKEN } from "../../utlis/consttant";
 
-const AddProduct = () => {
+const AddProduct = ({addgetProductListFnc}) => {
     const [ categoryList, setCategoryList ] = useState([])
     const [ productName, setProductName ] = useState('')
     const [ productPhoto, setProductPhoto ] = useState(null)
     const [ categoryId, setCategoryId ] = useState('Category Name')
     const [ productPrice, setProductPrice ] = useState('')
     const [ offerPrice, setOfferPrice ] = useState('')
-    const [ productQuantity, setProductQuantity ] = useState('')
-    const [ productNew, setProductNew ] = useState('')
-    const [ productTrending, setProductTrending ] = useState('')
-    const [ productStatus, setProductStatus ] = useState('')
+    const [ productQuantity, setProductQuantity ] = useState(1)
+    const [ productNew, setProductNew ] = useState(false)
+    const [ productTrending, setProductTrending ] = useState(false)
+    const [ productStatus, setProductStatus ] = useState(true) 
 
     const productNewCheckBox = (e) => {
         setProductNew(e.target.checked);
@@ -74,6 +74,7 @@ const AddProduct = () => {
         );
 
         alert('Product Added');
+        addgetProductListFnc()
       }catch(err){
         console.error('Failed to add product: ', err)
       }

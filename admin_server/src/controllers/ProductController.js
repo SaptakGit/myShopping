@@ -32,10 +32,25 @@ const addProduct = async (req, res) => {
         }
 }
 
-const getProductList = (req, res) => {
-    console.log('product') 
+const getProductList = async (req, res) => {
     try{
-        console.log('Product List')
+        const page = parseInt(req.query.page) || 1;
+        let limit = parseInt(req.query.limit) || 10;
+        limit = limit > 50 ? 50 : limit;
+        const skip = (page-1)*limit;
+
+        const productList = await Product.find()
+            .sort({_id: -1})
+            .skip(skip)
+            .limit(limit)
+            .populate({path:'categoryId', select: 'categoryName'});
+
+        if(productList.length > 0){
+            res.status(200).json({status:true, productList:productList, totalProductList: productList.length, offset:limit})
+        }else{
+            res.status(200).json({status:false, message: 'No Category Found'})
+        }
+
     }catch(err){
         res.status(500).json({message: 'Internal serve error', error: err})
     }
