@@ -56,7 +56,7 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
                     <button className={`btn ${productStatus ? 'btn-success' : 'btn-error'} p-5`} onClick={() => changeStatus(_id, productStatus)}>{productStatus ? "Active" : "Inactive"}</button>
                 </td>
                 <td>
-                  <div className="dropdown dropdown-right">
+                  <div className="dropdown dropdown-left">
                     <div tabIndex={0} role="button" className="m-1 btn btn-info">Action</div>
                     <ul tabIndex={0} className="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
                       <li><a> ✒️ Edit</a></li>

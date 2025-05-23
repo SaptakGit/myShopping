@@ -20,20 +20,18 @@ const Product = () => {
           {
             headers: {
               Authorization : `Bearer ${BEARER_TOKEN}`
-            }
-          },
-          {
+            },
             params:{
               limit : 10,
               page: currentPage
-            }
-          },
-          { withCredentials: true }
+            },
+            withCredentials: true 
+          }
         );
 
         setProductList(res);
         setTotalProduct(res.data.totalProductList);
-        setProdListLimit(res.data.limit);
+        setProdListLimit(res.data.offset);
 
 
       }catch(err){

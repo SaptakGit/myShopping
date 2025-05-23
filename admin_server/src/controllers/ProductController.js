@@ -38,15 +38,16 @@ const getProductList = async (req, res) => {
         let limit = parseInt(req.query.limit) || 10;
         limit = limit > 50 ? 50 : limit;
         const skip = (page-1)*limit;
-
         const productList = await Product.find()
             .sort({_id: -1})
             .skip(skip)
             .limit(limit)
             .populate({path:'categoryId', select: 'categoryName'});
 
+        const totalProduct = await Product.find();
+
         if(productList.length > 0){
-            res.status(200).json({status:true, productList:productList, totalProductList: productList.length, offset:limit})
+            res.status(200).json({status:true, productList:productList, totalProductList: totalProduct.length, offset:limit})
         }else{
             res.status(200).json({status:false, message: 'No Category Found'})
         }

@@ -1,5 +1,5 @@
 const ProductListPagination = ({allProductCount, productLimit, getAllProductListFunc, setCurrPage}) => {
-    console.log(555)
+    //console.log(555)
     const totalPages = Math.ceil(allProductCount/productLimit)
     const totalPagesArray = Array.from({length: totalPages}, (_,i) => i + 1);
 
