@@ -93,9 +93,26 @@ const changeStatus = async (req, res) => {
     }
 }
 
+const deleteCategory = async (req, res) => {
+    try{
+        const { id } = req.body;
+
+        const resDeleteStatus = await Category.findByIdAndDelete(id);
+
+        if(!resDeleteStatus) {
+            return res.status(404).json({message: "Category not found"})
+        }
+
+        return res.status(200).json({message: "Category Deleted"})
+    }catch(err){
+        return res.status(500).json({message:"Internal Server Error"})
+    }
+}
+
 module.exports = {
     createCategory,
     getCategoryList,
     activeCategoryList,
-    changeStatus
+    changeStatus,
+    deleteCategory
 }
