@@ -25,6 +25,26 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
         console.error(err)
       }
     }
+
+    
+    const delCategory = async (catId) => {
+      try{
+        const resDelete = await axios.delete(`${import.meta.env.VITE_BASE_URL}/admin/api/deletecategory`,
+          { data: { id: catId },
+            headers:{
+              Authorization : `Bearer ${BEARER_TOKEN}`
+            },
+            withCredentials:true
+          }
+        )
+
+        if(resDelete){
+          catListFnc(currPage)
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
     
     return(
         <tr>
@@ -52,8 +72,8 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
                   <div className="dropdown dropdown-right">
                     <div tabIndex={0} role="button" className="m-1 btn btn-info">Action</div>
                     <ul tabIndex={0} className="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
-                      <li><a> ✒️ Edit</a></li>
-                      <li><a> 🗑️ Delete</a></li>
+                      <li><a className="text-orange-500"> ✒️ Edit</a></li>
+                      <li><button className="text-red-600" onClick={() => delCategory(_id)}> 🗑️ Delete</button></li>
                     </ul>
                   </div>
                 </td>
