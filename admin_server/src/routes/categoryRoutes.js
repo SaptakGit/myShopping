@@ -9,5 +9,6 @@ router.post('/category', uploadCatImg.single('categoryPhoto'), CategoryControlle
 router.get('/categorylist', CategoryController.getCategoryList)
 router.get('/activecatist', CategoryController.activeCategoryList)
 router.patch('/changestatus', CategoryController.changeStatus)
+router.delete('/deletecategory', CategoryController.deleteCategory)
 
 module.exports = router
