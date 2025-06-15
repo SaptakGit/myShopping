@@ -1,12 +1,11 @@
 import React from 'react';
-import { DEMO_MEN_IMG,DEMO_WOMEN_IMG } from '../../utlis/constant';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import ProductCard from './ProductCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const products = [
+/*const products = [
   {
     id: 1,
     name: 'Grey Plain T-shirt',
@@ -63,9 +62,9 @@ const products = [
     price: '$89',
     image: DEMO_WOMEN_IMG,
   },
-];
+];*/
 
-const CrousalSection = ({headerCaption}) => {
+const CrousalSection = ({headerCaption, products = []}) => {
     return(
         <section className="py-10 px-16">
             <div className="flex justify-between items-center mb-6">

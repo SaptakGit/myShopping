@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../utlis/api';
 import { BEARER_TOKEN } from '../../utlis/consttant'
 
 const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
@@ -8,15 +8,7 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
 
     const changeStatus = async (catId, catStatus) => {
       try{
-        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,
-          {catId, catStatus}, 
-          {
-            headers:{
-              Authorization : `Bearer ${BEARER_TOKEN}`
-            }
-          },
-          {withCredentials: true}
-        )
+        const resStatus = await api.patch(`/admin/api/changestatus`, {catId, catStatus})
         if(resStatus){
           catListFnc(currPage)
         }
@@ -29,14 +21,7 @@ const CategoryListRow = ({catinfo, currPage, catListFnc}) => {
     
     const delCategory = async (catId) => {
       try{
-        const resDelete = await axios.delete(`${import.meta.env.VITE_BASE_URL}/admin/api/deletecategory`,
-          { data: { id: catId },
-            headers:{
-              Authorization : `Bearer ${BEARER_TOKEN}`
-            },
-            withCredentials:true
-          }
-        )
+        const resDelete = await api.delete(`/admin/api/deletecategory`,{ data: { id: catId } })
 
         if(resDelete){
           catListFnc(currPage)

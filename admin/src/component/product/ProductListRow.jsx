@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../utlis/api';
 import { BEARER_TOKEN } from '../../utlis/consttant'
 
 const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
@@ -6,25 +6,30 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
     const { _id, productName, productPhoto, categoryId, productPrice, offerPrice, productQuantity, productNew, productTrending, productStatus } = productinfo;
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-    const changeStatus = async (catId, catStatus) => {
-      /*try{
-        const resStatus = await axios.patch(`${import.meta.env.VITE_BASE_URL}/admin/api/changestatus`,
-          {catId, catStatus}, 
-          {
-            headers:{
-              Authorization : `Bearer ${BEARER_TOKEN}`
-            }
-          },
-          {withCredentials: true}
-        )
+    const changeStatus = async (prodId, prodStatus) => {
+      try{
+        const resStatus = await api.patch(`/admin/api/changeprodstatus`, {prodId, prodStatus})
         if(resStatus){
-          catListFnc(currPage)
+          prodListFnc(currPage)
+        }
+      }
+      catch(err){ 
+        console.error(err)
+      }
+    }
+
+    const deleteProduct = async (prodId) => {
+      //console.log(123)
+      try{
+        const delProduct = await api.delete(`/admin/api/deleteproduct`, { data : { id : prodId }})
+
+        if(delProduct){
+          prodListFnc(currPage)
         }
       }
       catch(err){
-        console.error(err)
-      }*/
-     console.error(123)
+        console.log(err)
+      }
     }
     
     return(
@@ -59,8 +64,8 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
                   <div className="dropdown dropdown-left">
                     <div tabIndex={0} role="button" className="m-1 btn btn-info">Action</div>
                     <ul tabIndex={0} className="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
-                      <li><a> ✒️ Edit</a></li>
-                      <li><a> 🗑️ Delete</a></li>
+                      <li><a className="text-orange-500"> ✒️ Edit</a></li>
+                      <li><button className="text-red-600" onClick={() => deleteProduct(_id)}> 🗑️ Delete</button></li>
                     </ul>
                   </div>
                 </td>

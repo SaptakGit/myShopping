@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../utlis/api'
 import { useEffect, useState } from "react"
 import { BEARER_TOKEN } from "../../utlis/consttant";
 
@@ -28,14 +28,7 @@ const AddProduct = ({addgetProductListFnc}) => {
 
     const getCatList = async () => {
       try{
-        const resCatList = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/activecatist`,
-          {
-            headers:{
-                    Authorization : `Bearer ${BEARER_TOKEN}`
-                  }
-          },
-          {withCredentials:true}
-        );
+        const resCatList = await api.get(`/admin/api/activecatist`);
         setCategoryList(resCatList.data);
       }catch(err){
         console.error('Failed to fetch category list:', err);
@@ -63,16 +56,7 @@ const AddProduct = ({addgetProductListFnc}) => {
       formData.append('productStatus', productStatus);
 
       try{
-        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/api/addproduct`,
-          formData,
-          {
-            headers:{
-                    Authorization : `Bearer ${BEARER_TOKEN}`
-                  }
-          },
-          {withCredentials: true}
-        );
-
+        const res = await api.post(`/admin/api/addproduct`, formData);
         alert('Product Added');
         addgetProductListFnc()
       }catch(err){

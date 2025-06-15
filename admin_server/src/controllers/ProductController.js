@@ -57,7 +57,52 @@ const getProductList = async (req, res) => {
     }
 }
 
+const changeProdStatus = async (req, res) => {
+    try{
+        //console.log(req.body)
+        const id = req.body.prodId
+        const prodStatus = req.body.prodStatus
+
+        let setStatus = prodStatus === false ? true : false;
+
+         const resUpdStatus = await Product.findByIdAndUpdate(
+            id,
+            {$set : {productStatus :setStatus}},
+            {new : true}
+        )
+
+        if (!resUpdStatus) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        //console.log('Updated:', resUpdStatus);
+        res.status(200).json({ message: 'Procudct status updated', product: resUpdStatus });
+    }catch(err){
+        console.error(err)
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    //console.log(req.body)
+    try{
+        const { id } = req.body;
+
+        const resDelProduct = await Product.findByIdAndDelete(id);
+
+        if(!resDelProduct){
+            return res.status(404).json({message:"Product not found"})
+        }
+
+        return res.status(200).json({message: "Product Deleted"})
+    }
+    catch(err){
+        return res.status(500).json({message:"Internal Server Error"})
+    }
+}
+
 module.exports = {
     addProduct,
-    getProductList
+    getProductList,
+    changeProdStatus,
+    deleteProduct
 }

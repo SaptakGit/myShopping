@@ -1,9 +1,10 @@
 import axios from 'axios';
+import api from '../../utlis/api'
 import React, { useEffect, useState } from 'react'
 import CategoryListRow from './CategoryListRow';
 import CategoryListPagination from './CategoryListPagination';
 import CreateCategory from './CreateCategory';
-import { BEARER_TOKEN } from '../../utlis/consttant';
+// import { BEARER_TOKEN } from '../../utlis/consttant';
 //import UserListPagination from './UserListPagination';
 
 const Category = () => {
@@ -17,15 +18,12 @@ const Category = () => {
 
   const getAllCategoryList = async (currentPage) => {
     try{
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/categorylist`,{
-        headers:{
-          Authorization : `Bearer ${BEARER_TOKEN}`
-        },
+      //const BEARER_TOKEN = localStorage.getItem('token');
+      const res = await api.get(`/admin/api/categorylist`,{
         params: {
           limit: 10,
           page: currentPage
-         },
-        withCredentials : true
+         }
       })
       //console.log(res.data.categoryList)
       setAllCategoryListData(res);

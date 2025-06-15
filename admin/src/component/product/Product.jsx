@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from 'axios'
 import ProductListRow from "./ProductListRow";
 import ProductListPagination from "./ProductListPagination";
+import api from '../../utlis/api'
 
 const Product = () => {
 
@@ -16,16 +17,12 @@ const Product = () => {
     const getProductList = async (currentPage) => {
 
       try{
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/api/productlist`,
+        const res = await api.get(`/admin/api/productlist`,
           {
-            headers: {
-              Authorization : `Bearer ${BEARER_TOKEN}`
-            },
             params:{
               limit : 10,
               page: currentPage
-            },
-            withCredentials: true 
+            }
           }
         );
 
@@ -89,4 +86,4 @@ const Product = () => {
     )
 }
 
-export default Product
+export default Product 
