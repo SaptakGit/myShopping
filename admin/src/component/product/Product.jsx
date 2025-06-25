@@ -30,7 +30,6 @@ const Product = () => {
         setTotalProduct(res.data.totalProductList);
         setProdListLimit(res.data.offset);
 
-
       }catch(err){
         console.log(err)
       }

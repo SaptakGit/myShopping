@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 
 const Layout = () => {
-  console.log('✅ Layout mounted');
+  //console.log('✅ Layout mounted');
   return (
     <>
       <Navbar/>

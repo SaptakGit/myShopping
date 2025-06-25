@@ -49,7 +49,7 @@ const getProductList = async (req, res) => {
         if(productList.length > 0){
             res.status(200).json({status:true, productList:productList, totalProductList: totalProduct.length, offset:limit})
         }else{
-            res.status(200).json({status:false, message: 'No Category Found'})
+            res.status(200).json({status:false, productList: [], message: 'No Category Found'})
         }
 
     }catch(err){
