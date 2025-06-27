@@ -13,13 +13,15 @@ app.use(cors({
 })); // whitelisting the frontend url
 app.use(express.json()) // body parser
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));  // serve the uploads folder statically
-
+app.use(express.urlencoded({ extended: true })); // optional for form data
 
 
 // Routes
 const homeRouters = require('./routes/homeRoutes')
+const productRouters = require('./routes/productRoutes')
 
 app.use('/client/api', homeRouters)
+app.use('/client/api', productRouters)
 
 connectMongo()
         .then(() => {

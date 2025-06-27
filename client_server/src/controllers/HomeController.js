@@ -41,8 +41,6 @@ const homePorductList = async (req, res) => {
         }else{
             res.status(200).json({status: false, message:'No Product Found'})
         }
-
-
     }catch(err){
         res.status(400).json({message:err.message})
     }
