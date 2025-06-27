@@ -1,7 +1,40 @@
+import { useEffect, useState } from "react"
 import ProductBanner from "./ProductBanner"
 import ProductCard from "./ProductCard"
+import axios from "axios"
+import { useSearchParams } from 'react-router-dom'
 
 const ProductList = () => {
+
+  const [ productList, setProductList ] = useState([])
+
+  const [ searchParams ] = useSearchParams()
+
+  const categoryId = searchParams.get('category')
+
+  const getProductList = async (categoryId) => {
+    try{
+      const params = {}
+
+      if(categoryId){
+        params.category = categoryId
+      }
+
+      const prodList = await axios.get(`${import.meta.env.VITE_BASE_URL}/client/api/productlist`,
+        { params }
+      );
+      
+      setProductList(prodList.data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    getProductList(categoryId)
+    
+  },[categoryId])
+
   return (
     <div className="m-5">
       <ProductBanner/>
@@ -37,11 +70,7 @@ const ProductList = () => {
 
           <div className=''>
             <div className="flex flex-wrap gap-6 justify-start px-5">
-
-              <ProductCard />
-              
-
-              
+              {productList && productList?.productList?.map((product) => <ProductCard key={product._id} product={product} />)}
             </div>
           </div>
         </div>
