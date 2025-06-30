@@ -15,6 +15,35 @@ const productSchema = new mongoose.Schema(
             ref: 'Category',
             required: true,
         },
+        shapeId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Shape',
+            required: true,
+        },
+        caratSize:{
+            type: Number,
+            required: true,
+        },
+        brandId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Brand',
+            required: true,
+        },
+        colorId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Color',
+            required: true,
+        },
+        typeId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Type',
+            required: true,
+        },
+        occasionId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Occasion',
+            required: true,
+        },
         productPrice:{
             type: Number,
             required: true
@@ -27,20 +56,12 @@ const productSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        productNew:{
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        productTrending:{
-            type: Boolean,
-            required: false,
-            default: false
-        },
         productStatus: {
             type: Boolean,
             required: true
         }
+    },{
+        timestamps: true
     }
 )
 

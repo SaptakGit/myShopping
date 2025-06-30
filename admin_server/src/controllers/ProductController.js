@@ -4,7 +4,7 @@ const Product = require('../models/mongo/products')
 const addProduct = async (req, res) => {
     try{
         //console.log(req.body)
-        const { productName, categoryId, productPrice, offerPrice, productQuantity, productNew, productTrending, productStatus } = req.body;
+        const { productName, categoryId, shapeId, caratSize, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productStatus } = req.body;
 
         const productPhoto = req.file.path.replace(/\\/g, '/')
 
@@ -14,12 +14,16 @@ const addProduct = async (req, res) => {
             const product = new Product({
                 productName, 
                 productPhoto,
-                categoryId, 
+                categoryId,
+                shapeId, 
+                caratSize, 
+                brandId, 
+                colorId, 
+                typeId, 
+                occasionId,  
                 productPrice, 
                 offerPrice, 
                 productQuantity, 
-                productNew, 
-                productTrending, 
                 productStatus 
             })
 

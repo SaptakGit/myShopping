@@ -7,7 +7,7 @@ const uploadCatImg = require('../middleware/uploadCategoryPhoto')
 
 router.post('/category', uploadCatImg.single('categoryPhoto'), CategoryController.createCategory)
 router.get('/categorylist', CategoryController.getCategoryList)
-router.get('/activecatist', CategoryController.activeCategoryList)
+router.get('/activecatlist', CategoryController.activeCategoryList)
 router.patch('/changestatus', CategoryController.changeStatus)
 router.delete('/deletecategory', CategoryController.deleteCategory)
 

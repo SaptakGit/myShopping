@@ -20,10 +20,21 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));  // ser
 const authRouters = require('./routes/authRoute')
 const categoryRoutes = require('./routes/categoryRoutes')
 const productReoutes = require('./routes/productRoutes')
+const brandRoutes = require('./routes/brandRoutes')
+const colorRoutes = require('./routes/colorRoutes')
+const occasionRoutes = require('./routes/occasionRoutes')
+const shapeRoutes = require('./routes/shapeRoutes')
+const typeRoutes = require('./routes/typeRoutes')
+
 
 app.use('/admin/api', authRouters)
-app.use('/admin/api',auth, categoryRoutes)
-app.use('/admin/api',auth, productReoutes)
+app.use('/admin/api', auth, categoryRoutes)
+app.use('/admin/api', auth, productReoutes)
+app.use('/admin/api', auth, brandRoutes)
+app.use('/admin/api', auth, colorRoutes)
+app.use('/admin/api', auth, occasionRoutes)
+app.use('/admin/api', auth, shapeRoutes)
+app.use('/admin/api', auth, typeRoutes)
 
 connectMongo()
         .then(() => {
