@@ -47,7 +47,7 @@ const Category = () => {
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
-            <thead>
+            <thead className="text-yellow-600 text-base">
               <tr>
                 <th>
                   <label>

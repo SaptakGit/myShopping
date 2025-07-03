@@ -17,15 +17,15 @@ const AddProduct = ({addgetProductListFnc}) => {
     const [ shapeId, setShapeId ] = useState('Select Shape')
     const [ brandId, setBrandId ] = useState('Select Brand')
     const [ caratId, setCaratId ] = useState('Select Carat')
+    const [ productWeight, setProductWeight ] = useState('0')
     const [ colorId, setColorId ] = useState('Select Color')
     const [ typeId, setTypeId ] = useState('Select Type')
     const [ occasionId, setOccasionId ] = useState('Select Occasion')
     const [ productPrice, setProductPrice ] = useState('')
     const [ offerPrice, setOfferPrice ] = useState('')
     const [ productQuantity, setProductQuantity ] = useState(1)
-    const [ productNew, setProductNew ] = useState(false)
-    const [ productTrending, setProductTrending ] = useState(false)
     const [ productStatus, setProductStatus ] = useState(true) 
+    const [showToast, setShowToast] = useState(false);
 
     const productNewCheckBox = (e) => {
         setProductNew(e.target.checked);
@@ -96,7 +96,7 @@ const AddProduct = ({addgetProductListFnc}) => {
     const getCaratList = () =>{
       try{
         const caratListArr = [];
-        for(let i=1; i<=10; i++){
+        for(let i=1; i<=25; i++){
           caratListArr.push(i);
         }
 
@@ -129,6 +129,7 @@ const AddProduct = ({addgetProductListFnc}) => {
       formData.append('shapeId', shapeId);
       formData.append('brandId', brandId);
       formData.append('caratSize', caratId);
+      formData.append('productWeight', productWeight);
       formData.append('colorId', colorId);
       formData.append('typeId', typeId);
       formData.append('occasionId', occasionId);
@@ -139,8 +140,12 @@ const AddProduct = ({addgetProductListFnc}) => {
 
       try{
         const res = await api.post(`/admin/api/addproduct`, formData);
-        alert('Product Added');
-        addgetProductListFnc()
+        //alert('Product Added');
+        setShowToast(true);
+        addgetProductListFnc();
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
       }catch(err){
         console.error('Failed to add product: ', err)
       }
@@ -203,6 +208,10 @@ const AddProduct = ({addgetProductListFnc}) => {
                     <option disabled>Loading or No Carat Found</option>
                   )}
                 </select>
+              </fieldset>
+              <fieldset className="fieldset mb-5 mr-5">
+                <label className="label">Product Weight (Grams)</label>
+                <input type="text" placeholder="Product Weight" className="w-full max-w-xs input" value={productWeight} onChange={(e) => setProductWeight(e.target.value)}/>
               </fieldset>
               <fieldset className="fieldset mb-5 mr-5">
                 <label className="label">Product Brand</label>
@@ -286,7 +295,13 @@ const AddProduct = ({addgetProductListFnc}) => {
               </fieldset>
             </div> 
           </form>
+          {showToast && (<div className="toast toast-top toast-center">
+                <div className="alert alert-success">
+                    <span>Product Added Successfully.</span>
+                </div>
+            </div>)}
         </div>
+        
     )
 }
 

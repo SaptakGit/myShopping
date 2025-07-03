@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const adminLogin = async (req, res) => {
     try{
         const {email, password} = req.body;
-        console.log(email+' '+password)
+        //console.log(email+' '+password)
         const adminUser = await AdminUser.findOne({where:{email}});
 
         if(!adminUser){

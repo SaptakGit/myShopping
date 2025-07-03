@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        productWeight:{
+            type: Number,
+            required: true,
+        },
         brandId:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Brand',
@@ -55,6 +59,10 @@ const productSchema = new mongoose.Schema(
         productQuantity:{
             type: Number,
             required: true,
+        },
+        productCode:{
+            type: String,
+            required: false,
         },
         productStatus: {
             type: Boolean,

@@ -1,12 +1,17 @@
 const Product = require('../models/mongo/products')
+const fs = require('fs');
+const generateCode = require('../helper/productCodeGenerator')
 
 
 const addProduct = async (req, res) => {
     try{
+        const uniqueProductCode = generateCode(10);
+        console.log(uniqueProductCode);
         //console.log(req.body)
-        const { productName, categoryId, shapeId, caratSize, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productStatus } = req.body;
+        const { productName, categoryId, shapeId, caratSize, productWeight, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productStatus } = req.body;
 
         const productPhoto = req.file.path.replace(/\\/g, '/')
+        
 
         if(!productName || !req.file){
             return res.status(400).json({messae: 'Product name and Photo is required'})
@@ -17,13 +22,15 @@ const addProduct = async (req, res) => {
                 categoryId,
                 shapeId, 
                 caratSize, 
+                productWeight,
                 brandId, 
                 colorId, 
                 typeId, 
                 occasionId,  
                 productPrice, 
                 offerPrice, 
-                productQuantity, 
+                productQuantity,
+                productCode : uniqueProductCode, 
                 productStatus 
             })
 
@@ -46,7 +53,12 @@ const getProductList = async (req, res) => {
             .sort({_id: -1})
             .skip(skip)
             .limit(limit)
-            .populate({path:'categoryId', select: 'categoryName'});
+            .populate({path: 'categoryId', select: 'categoryName'})
+            .populate({path: 'shapeId', select: 'shapeName'})
+            .populate({path: 'brandId', select: 'brandName'})
+            .populate({path: 'colorId', select: 'colorName'})
+            .populate({path: 'typeId', select: 'typeName'})
+            .populate({path: 'occasionId', select: 'occasionName'});
 
         const totalProduct = await Product.find();
 
@@ -69,7 +81,7 @@ const changeProdStatus = async (req, res) => {
 
         let setStatus = prodStatus === false ? true : false;
 
-         const resUpdStatus = await Product.findByIdAndUpdate(
+        const resUpdStatus = await Product.findByIdAndUpdate(
             id,
             {$set : {productStatus :setStatus}},
             {new : true}
@@ -91,7 +103,21 @@ const deleteProduct = async (req, res) => {
     try{
         const { id } = req.body;
 
+        const productDetail = await Product.findById(id);
+
+        const imagePath = productDetail.productPhoto;
+
         const resDelProduct = await Product.findByIdAndDelete(id);
+
+        fs.unlink(imagePath, (err) => {
+            if (err) {
+                console.error(`Error deleting image file: ${err}`);
+                // You might want to log this error but still send a success response
+                // if the database deletion was successful.
+            } else {
+                console.log(`Image deleted from folder.`);
+            }
+        });
 
         if(!resDelProduct){
             return res.status(404).json({message:"Product not found"})

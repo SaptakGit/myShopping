@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import ProductBanner from "./ProductBanner"
 import ProductCard from "./ProductCard"
 import axios from "axios"
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import ProductFilter from "./ProductFilter"
 
 const ProductList = () => {
@@ -39,26 +39,18 @@ const ProductList = () => {
   return (
     <div className="m-5">
       <ProductBanner/>
-      
-      
       <div className="flex my-5">
         <ProductFilter />
         <div className="divider divider-horizontal"></div>
         <div className="card bg-base-300 rounded-box grid grow place-items-center justify-center w-full">
-
           <div className=''>
             <div className="flex flex-wrap gap-6 justify-start px-5">
-              {productList && productList?.productList?.map((product) => <ProductCard key={product._id} product={product} />)}
+              {productList && productList?.productList?.map((product) => <Link to='/productdetails' key={product._id}><ProductCard product={product} /></Link>)}
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
-
-    
   )
 }
 

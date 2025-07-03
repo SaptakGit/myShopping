@@ -47,22 +47,27 @@ const Product = () => {
                 <div className="overflow-x-auto">
                   <table className="table">
                     {/* head */}
-                    <thead>
+                    <thead className="text-yellow-600 text-base">
                       <tr>
                         <th>
                           <label>
                             <input type="checkbox" className="checkbox" />
                           </label>
                         </th>
-                        <th>Product Image</th>
-                        <th>Product Name</th>
-                        <th>Category Name</th>
-                        <th>Product Price</th>
-                        <th>Offer Price</th>
-                        <th>Product Quantity</th>
-                        <th>Product New</th>
-                        <th>Product Trending</th>
-                        <th>Product Status</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Shape</th>
+                        <th>Carat</th>
+                        <th>Weight (Grams)</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Occasion</th>
+                        <th>Price</th>
+                        <th>Offer</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>

@@ -17,9 +17,11 @@ app.use(express.urlencoded({ extended: true })); // optional for form data
 
 
 // Routes
+const authRouters = require('./routes/authRoute')
 const homeRouters = require('./routes/homeRoutes')
 const productRouters = require('./routes/productRoutes')
 
+app.use('/client/api', authRouters)
 app.use('/client/api', homeRouters)
 app.use('/client/api', productRouters)
 

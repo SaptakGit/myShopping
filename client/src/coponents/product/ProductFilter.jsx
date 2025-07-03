@@ -21,12 +21,12 @@ const ProductFilter = () => {
                         <ul>
                             <li> 
                                 <label className="label"> Submenu 1
-                                    <input type="checkbox" defaultChecked className="checkbox" /> 
+                                    <input type="checkbox" className="checkbox" /> 
                                 </label>
                             </li>
                             <li>
                                 <label className="label"> Submenu 2
-                                    <input type="checkbox" defaultChecked className="checkbox" /> 
+                                    <input type="checkbox" className="checkbox" /> 
                                 </label>
                             </li>
                         </ul>

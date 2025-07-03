@@ -56,6 +56,10 @@ const productSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        productCode:{
+            type: String,
+            required: false,
+        },
         productStatus: {
             type: Boolean,
             required: true

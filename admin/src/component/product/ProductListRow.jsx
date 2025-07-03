@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import api from '../../utlis/api';
 import { BEARER_TOKEN } from '../../utlis/consttant'
 
 const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
 
-    const { _id, productName, productPhoto, categoryId, productPrice, offerPrice, productQuantity, productNew, productTrending, productStatus } = productinfo;
+    const [showToast, setShowToast] = useState(false);
+
+    const { _id, productName, productPhoto, categoryId, shapeId, caratSize, productWeight, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productStatus } = productinfo;
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const changeStatus = async (prodId, prodStatus) => {
@@ -24,7 +27,11 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
         const delProduct = await api.delete(`/admin/api/deleteproduct`, { data : { id : prodId }})
 
         if(delProduct){
-          prodListFnc(currPage)
+          setShowToast(true);
+          setTimeout(() => {
+            setShowToast(false);
+          }, 3000);
+          prodListFnc(currPage);
         }
       }
       catch(err){
@@ -52,11 +59,16 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
                 </td>
                 <td>{productName}</td>
                 <td>{categoryId.categoryName}</td>
+                <td>{shapeId.shapeName}</td>
+                <td>{caratSize}</td>
+                <td>{productWeight}</td>
+                <td>{brandId.brandName}</td>
+                <td>{colorId.colorName}</td>
+                <td>{typeId.typeName}</td>
+                <td>{occasionId.occasionName}</td>
                 <td>{productPrice}</td>
                 <td>{offerPrice}</td>
                 <td>{productQuantity}</td>
-                <td>{productTrending}</td>
-                <td>{productNew}</td>
                 <td>
                     <button className={`btn ${productStatus ? 'btn-success' : 'btn-error'} p-5`} onClick={() => changeStatus(_id, productStatus)}>{productStatus ? "Active" : "Inactive"}</button>
                 </td>
@@ -69,6 +81,11 @@ const ProductListRow = ({productinfo, currPage, prodListFnc}) => {
                     </ul>
                   </div>
                 </td>
+                {showToast && (<div className="toast toast-top toast-center">
+                  <div className="alert alert-success">
+                      <span>Product Deleted Successfully.</span>
+                  </div>
+                </div>)}
               </tr>
     )
 }
