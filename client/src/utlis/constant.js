@@ -2,9 +2,10 @@ import bannerImg from "../assets/banner.jpg";
 import demoMen from "../assets/men.jpg";
 import demoWomen from "../assets/women.jpg";
 import discount from "../assets/discount.jpg";
-import newsletter from "../assets/newsletter.jpg";
+//import newsletter from "../assets/newsletter.jpg";
+import newsletter from "../assets/product_banner/banner7.jpg";
 import payments from "../assets/payments.png";
-import productBannerImg from "../assets/product_banner/banner11.png";
+import productBannerImg from "../assets/product_banner/banner12.jpg";
 
 
 export const DISCOUNT_IMG = discount;

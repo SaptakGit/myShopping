@@ -4,15 +4,15 @@ const bcrypt = require('bcryptjs')
 
 const clientLogin = async (req, res) => {
     try{
-        const {email, password } = req.body;
+        const { userEmail, userPassword } = req.body;
 
-        const clientUser = await ClientUser.findOne({where: {email}})
+        const clientUser = await ClientUser.findOne({where: {email : userEmail}})
 
         if(!clientUser){
             res.status(200).json({status:false, message:'Invalid Username'})
         }
 
-        const isMatch = await bcrypt.compare(password, clientUser.password)
+        const isMatch = await bcrypt.compare(userPassword, clientUser.password)
 
         if(!isMatch){
             res.status(200).json({status:false, message:'Invalid Password'})
@@ -77,7 +77,34 @@ const clientRegister = async (req, res) => {
     }
 }
 
+
+const clientAuth = async (req, res) => {
+    try{
+        const { token } = req.body;
+        //console.log(token)
+        if(!token){
+            res.status(401).json({status:false, message:'Token not found'})
+        }
+
+        const decodeObj = await jwt.verify(token, process.env.JWT_SERECT)
+
+        const { _id } = decodeObj
+
+        const user = await ClientUser.findOne({where: _id})
+
+        if(!user){
+            res.status(401).json({status:false, message:'User not found'})
+        }
+
+        res.status(200).json({status:true, message:'user verified', user:user})
+
+    }catch(err){
+        res.status(500).json({message: err.message})
+    }
+}
+
 module.exports = {
     clientLogin,
-    clientRegister
+    clientRegister,
+    clientAuth
 }

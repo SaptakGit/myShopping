@@ -6,7 +6,7 @@ const generateCode = require('../helper/productCodeGenerator')
 const addProduct = async (req, res) => {
     try{
         const uniqueProductCode = generateCode(10);
-        console.log(uniqueProductCode);
+        //console.log(uniqueProductCode);
         //console.log(req.body)
         const { productName, categoryId, shapeId, caratSize, productWeight, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productStatus } = req.body;
 

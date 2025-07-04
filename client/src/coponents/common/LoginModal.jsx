@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../store/userSlice';
 
 const LoginModal = ({ onClose }) => {
     const [isLoginForm, setIsLoginForm] = useState(true);
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [ userName, setUserName ] = useState('')
     const [ userPhone, setUserPhone ] = useState('')
     const [ userAddress, setUserAddress ] = useState('')
@@ -14,25 +15,29 @@ const LoginModal = ({ onClose }) => {
 
     // Close modal on Escape key
     useEffect(() => {
-        const handleKeyDown = (e) => {
-        if (e.key === 'Escape') onClose();
-        };
+        const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown); 
     }, [onClose]);
 
     const handleLogin = async () => {
-    
         try{
             const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/client/api/login`, {
-                emailId,
-                password
+                userEmail,
+                userPassword
             }, {withCredentials:true});
-            //console.log(res.data);
-            //dispatch(addUser(res.data));
-            //return navigate("/");
+            if(res.data.status){
+                dispatch(addUser(res.data));
+                localStorage.setItem('token', res.data.token)
+                alert(res.data.message)
+                onClose()
+            }else{
+                alert(res.data.message);
+                return false
+            }
         } catch(err){
             setError(err.message);
+            
         }
     }
 
@@ -49,19 +54,16 @@ const LoginModal = ({ onClose }) => {
                 },
                 {withCredentials:true}
             );
-            //dispatch(addUser(res.data.data));
 
-            //console.log(res)
             if(res.data.status){
+                dispatch(addUser(res.data))
+                localStorage.setItem('token', res.data.token)
                 alert(res.data.message)
-                //console.log(res.data.token)
                 onClose()
             }else{
                 alert(res.data.message);
                 return false
             }
-
-            
         } catch(err){
             setError(err.message);
         }

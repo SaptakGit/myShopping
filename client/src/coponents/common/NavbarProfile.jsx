@@ -1,6 +1,22 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../../store/userSlice';
+
 
 const NavbarProfile = () => {
+
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    try{
+      dispatch(removeUser());
+      localStorage.removeItem('token')
+      //console.log('56')
+    } catch(err){
+      console.log(err.message);
+    }
+  }
+
   return (
     <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -20,7 +36,7 @@ const NavbarProfile = () => {
                   </a>
                 </li>
                 <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li><a onClick={handleLogout}>Logout</a></li>
               </ul>
             </div>
   )
