@@ -1,13 +1,63 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+const BASE_URL = import.meta.env.VITE_IMG_URL;
 
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
-  const thumbnails = [
-    'https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp'
-  ];
-
+  
 
 const ProductDetail = () => {
+
+  const [ searchParams ] = useSearchParams()
+  const [ productDetail, setProductDetail ] = useState({})
+
+  const productId = searchParams.get('product')
+
+  const getProductDetail = async (productId) => {
+    //console.log(productId)
+    try{
+      const params = {}
+
+      params.productId = productId
+
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/client/api/productdetail`,{
+        params
+      })
+
+      if(res.data.status){
+        setProductDetail(res.data.productDetail)
+      }
+     
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    getProductDetail(productId)
+  },[])
+
+  
+
+  /*const { _id, productName, productPhoto, categoryId, shapeId, caratSize, productWeight, brandId, colorId, typeId, occasionId, productPrice, offerPrice, productQuantity, productCode, productStatus } = productDetail;*/
+
+  /*console.log(productDetail)
+  console.log(productDetail?.colorId?.colorName)*/
+
+  const productName = productDetail?.productName;
+  const thumbnails = [productDetail?.productPhoto];
+  const productPrice = productDetail?.productPrice;
+  const offerPrice = productDetail?.offerPrice;
+  const Color = productDetail?.colorId?.colorName;
+  const Shape = productDetail?.shapeId?.shapeName;
+  const Carat = productDetail?.caratSize;
+  const Weight = productDetail?.productWeight;
+  const Brand = productDetail?.brandId?.brandName;
+  const Type = productDetail?.typeId?.typeName;
+  const Occasion = productDetail?.occasionId?.occasionName;
+  const productCode = productDetail?.productCode;
+  
   return (
- 
     <div className="container mx-auto p-10 bg-base-300 shadow-sm m-5 w-full">
       <div className="flex flex-col lg:flex-row gap-12">
         {/* Left: Images */}
@@ -15,67 +65,86 @@ const ProductDetail = () => {
           {/* Thumbnails */}
           <div className="flex lg:flex-col gap-2">
             {thumbnails.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                className="w-16 h-20 object-cover border rounded cursor-pointer hover:ring-2 ring-primary"
-                alt={`thumb-${i}`}
-              />
+              <img key={i} src={`${BASE_URL}/${src}`} className="w-16 h-20 object-cover border rounded cursor-pointer hover:ring-2 ring-primary" alt={`thumb-${i}`}/>
             ))}
           </div>
           {/* Main Image */}
-          <img
-            src={thumbnails[0]}
-            alt="Main Product"
-            className="w-full max-w-md object-cover rounded-lg"
-          />
+          <img src={`${BASE_URL}/${thumbnails[0]}`} alt="Main Product" className="w-full max-w-md object-cover rounded-lg"/>
         </div>
         {/* Right: Product Info */}
         <div className="flex-1 space-y-4">
-          <h2 className="text-2xl font-semibold">Women Printed Viscose Rayon Straight Kurta (Black)</h2>
+          <div className="flex gap-2">
+            <h2 className="text-2xl font-semibold">{productName}</h2>
+            <button className="btn btn-secondary">{productCode}</button>
+          </div>
           <div className="text-success font-medium">Special price</div>
 
           <div className="flex items-center gap-4">
-            <span className="text-2xl font-bold text-error">₹473</span>
-            <span className="line-through text-gray-400">₹1399</span>
-            <span className="text-green-600">66% off</span>
+            <span className="text-2xl font-bold text-error">
+                  {offerPrice !== undefined &&
+                    productPrice !== undefined ? (
+                      offerPrice !==productPrice
+                        ?offerPrice.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          style: 'currency',
+                          currency: 'INR'
+                        })
+                        :productPrice.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          style: 'currency',
+                          currency: 'INR'
+                        })
+                      ) : (<span></span> )}
+            </span>
+            {offerPrice != productPrice ?  (<>
+              <span className="line-through text-gray-400">₹{productDetail?.productPrice}</span>
+              <span className="text-green-600">{ Math.round(((productDetail?.productPrice-productDetail?.offerPrice)/productDetail?.productPrice)*100) }% off</span>
+              </>
+            ) : ''}
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="badge badge-success gap-2 text-white">
-              4.2 ★
-            </div>
+            <div className="badge badge-success gap-2 text-white">4.2 ★</div>
             <span className="text-sm text-gray-600">5,362 ratings and 262 reviews</span>
           </div>
-
-          {/* Color Thumbnails */}
-          <div>
-            <p className="font-medium mb-1">Color</p>
-            <div className="flex gap-2">
-              {thumbnails.slice(0, 2).map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  className="w-14 h-16 object-cover border rounded cursor-pointer hover:ring-2 ring-primary"
-                  alt={`color-${i}`}
-                />
-              ))}
+          <div className="flex w-full flex-col lg:flex-row">
+            {/* Left Side */}
+            <div className="card bg-base-300 rounded-box grid h-full grow place-items-start p-4">
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Color:</p>
+                <span>{Color}</span>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Shape:</p>
+                <span>{Shape}</span>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Carat:</p>
+                <span>{Carat}</span>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Weight:</p>
+                <span>{Weight}</span>
+              </div>
+            </div>
+            {/* Divider */}
+            <div className="divider lg:divider-horizontal"></div>
+            {/* Right Side */}
+            <div className="card bg-base-300 rounded-box grid h-full grow place-items-start p-4">
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Brand:</p>
+                <span>{Brand}</span>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Type:</p>
+                <span>{Type}</span>
+              </div>
+              <div className="flex gap-2 mb-2">
+                <p className="font-medium">Occasion:</p>
+                <span>{Occasion}</span>
+              </div>
             </div>
           </div>
-
-          {/* Size Selection */}
-          <div>
-            <p className="font-medium mb-1">Size</p>
-            <div className="flex gap-2">
-              {sizes.map((size) => (
-                <button key={size} className="btn btn-outline btn-sm">
-                  {size}
-                </button>
-              ))}
-              <a className="link text-primary text-sm pt-2">Size Chart</a>
-            </div>
-          </div>
-
           {/* Offers */}
           <div className="space-y-1 mt-4">
             <div className="font-medium">Coupons for you</div>

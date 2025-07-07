@@ -11,5 +11,6 @@ const connectMongo = async () => {
         process.exit(1)
     }
 }
+require('../models/mongo');
 
 module.exports = connectMongo;

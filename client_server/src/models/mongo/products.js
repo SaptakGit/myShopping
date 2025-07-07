@@ -18,9 +18,13 @@ const productSchema = new mongoose.Schema(
         shapeId:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Shape',
-            required: true,
+            required: true
         },
         caratSize:{
+            type: Number,
+            required: true,
+        },
+        productWeight:{
             type: Number,
             required: true,
         },

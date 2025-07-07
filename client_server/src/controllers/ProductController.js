@@ -1,4 +1,5 @@
-const Product = require('../models/mongo/products')
+const mongoose = require('mongoose');
+const Product = mongoose.model('Product');
 
 const productList = async (req, res) => {
     try{
@@ -25,6 +26,38 @@ const productList = async (req, res) => {
     }
 }
 
+
+const productDetail = async (req, res) => {
+    try{
+        const { productId } = req.query
+
+        //console.log(productId)
+
+        const filters = [
+            { _id: productId },
+            { productStatus: true }
+        ]
+
+        const prodDetail = await Product.findOne({ $and : filters })
+            .populate({path: 'categoryId', select: 'categoryName'})
+            .populate({path: 'shapeId', select: 'shapeName'})
+            .populate({path: 'brandId', select: 'brandName'})
+            .populate({path: 'colorId', select: 'colorName'})
+            .populate({path: 'typeId', select: 'typeName'})
+            .populate({path: 'occasionId', select: 'occasionName'});
+
+        if(prodDetail){
+            res.status(200).json({status:true, productDetail:prodDetail})
+        }else{
+            res.status(200).json({status:false, message: 'No Product Found'})
+        }
+
+    }catch(err){
+        res.status(400).json({message: err.message})
+    }
+}
+
 module.exports = {
-    productList
+    productList,
+    productDetail
 }

@@ -45,7 +45,7 @@ const ProductList = () => {
         <div className="card bg-base-300 rounded-box grid grow place-items-center justify-center w-full">
           <div className=''>
             <div className="flex flex-wrap gap-6 justify-start px-5">
-              {productList && productList?.productList?.map((product) => <Link to='/productdetails' key={product._id}><ProductCard product={product} /></Link>)}
+              {productList && productList?.productList?.map((product) => <Link to={`/productdetails?product=${product._id}`} key={product._id}><ProductCard product={product} /></Link>)}
             </div>
           </div>
         </div>

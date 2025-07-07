@@ -1,5 +1,9 @@
-const Category = require('../models/mongo/categories')
-const Product = require('../models/mongo/products')
+const mongoose = require('mongoose');
+const Category = mongoose.model('Category');
+const Product = mongoose.model('Product');
+
+/*const Category = require('../models/mongo/categories')
+const Product = require('../models/mongo/products')*/
 
 
 const categoryList = async (req, res) => {

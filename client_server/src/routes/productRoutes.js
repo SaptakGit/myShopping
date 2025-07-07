@@ -9,5 +9,6 @@ router.patch('/changeprodstatus', ProductController.changeProdStatus)
 router.delete('/deleteproduct', ProductController.deleteProduct)*/
 
 router.get('/productlist', ProductController.productList)
+router.get('/productdetail', ProductController.productDetail)
 
 module.exports = router
