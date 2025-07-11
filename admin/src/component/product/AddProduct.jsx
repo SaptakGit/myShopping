@@ -27,17 +27,9 @@ const AddProduct = ({addgetProductListFnc}) => {
     const [ productStatus, setProductStatus ] = useState(true) 
     const [showToast, setShowToast] = useState(false);
 
-    const productNewCheckBox = (e) => {
-        setProductNew(e.target.checked);
-      };
-
-      const productTrendingCheckBox = (e) => {
-        setProductTrending(e.target.checked)
-      };
-
-      const productStatusCheckBox = (e) => {
-        setProductStatus(e.target.checked)
-      };
+    const productStatusCheckBox = (e) => {
+      setProductStatus(e.target.checked)
+    };
 
     const getCatList = async () => {
       try{

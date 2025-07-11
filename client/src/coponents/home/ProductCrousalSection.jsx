@@ -4,8 +4,9 @@ import ProductCard from './ProductCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Link } from 'react-router-dom'
+import ProductShimmer from '../../utlis/ProductShimmer';
 
-const ProductCrousalSection = ({headerCaption, products = []}) => {
+const ProductCrousalSection = ({headerCaption, products = [], loader}) => {
     return(
         <section className="py-10 px-16">
             <div className="flex justify-between items-center mb-6">
@@ -25,11 +26,16 @@ const ProductCrousalSection = ({headerCaption, products = []}) => {
                 }}
                 className="pb-5"
             >
-                {products.map((product) => (
+                {loader ? (
+                // Render multiple shimmer cards while loading
+                Array(4).fill(0).map((_, idx) => (
+                    <SwiperSlide  key={idx}><ProductShimmer /></SwiperSlide>
+                ))
+              ) : (products.map((product) => (
                 <SwiperSlide key={product.id}>
                     <Link to='/products'><ProductCard productItem={product}/></Link>
                 </SwiperSlide>
-                ))}
+                )))}
             </Swiper>
         </section>
     )

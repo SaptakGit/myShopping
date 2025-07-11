@@ -1,12 +1,13 @@
 import { Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../store/userSlice';
+import { addToWishlist} from '../store/wishlistSlice';
+import { addToCart } from '../store/cartSlice';
 import axios from 'axios';
 
 const CheckAuth = (props) => {
     const {children} = props
     const dispatch = useDispatch()
-    //console.log('🛡️ CheckAuth loaded');
     const token = localStorage.getItem('token');
 
     const chkAuth = async () => {
@@ -19,10 +20,30 @@ const CheckAuth = (props) => {
                 {withCredentials:true}
             );
 
-            //console.log(res.data)
+            const userData = {status: res.data.status, message: res.data.message, user: res.data.user};
+            const userWishlist = res.data.myWishList;
+            const userCart = res.data.myCart;
+
+            //console.log(userCart)
 
             if(res.data.status){
-                dispatch(addUser(res.data))
+                dispatch(addUser(userData));
+                userWishlist.map((uw) => dispatch(addToWishlist(uw)));
+                userCart.map((uc) => {
+                        const cartItem = {
+                            _id: uc._id,
+                            productId: uc.productId._id,
+                            itemQuantity: uc.itemQuantity,
+                            userId: uc.userId,
+                            productCode: uc.productId.productCode,
+                            productName: uc.productId.productName,
+                            productPhoto: uc.productId.productPhoto,
+                            productPrice: uc.productId.productPrice,
+                            productType: uc.productId.typeId.typeName,
+                        };
+
+                        dispatch(addToCart(cartItem));
+                    });
             }
 
         }catch(err){
@@ -31,13 +52,10 @@ const CheckAuth = (props) => {
     }
 
     if(token){
-        //return <Navigate to="/" replace />;
-        //console.log('err')
         chkAuth()
     }else{
         dispatch(addUser({status:false}))
     }
-    //console.log('✅ Token found, rendering children');
     return <>
     {children}
     </>

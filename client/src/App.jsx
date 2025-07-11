@@ -6,6 +6,9 @@ import Productdetail from './coponents/product/ProductDetail'
 import { Provider } from 'react-redux'
 import appStore from './store/appStore'
 import CheckAuth from './middlewares/CheckAuth'
+import WishList from './coponents/wishlist/WishList'
+import MyCart from './coponents/cart/MyCart'
+import Order from './coponents/order/Order'
 
 function App() {
   const router = createBrowserRouter([
@@ -15,7 +18,10 @@ function App() {
       children:[
         { path: '/', element: <CheckAuth><Home/></CheckAuth> },
         { path: '/products', element: <CheckAuth><Product/></CheckAuth>},
-        { path: '/productdetails', element: <CheckAuth><Productdetail/></CheckAuth>}
+        { path: '/productdetails', element: <CheckAuth><Productdetail/></CheckAuth>},
+        { path: '/wishlist', element: <CheckAuth><WishList/></CheckAuth>},
+        { path: '/mycart', element: <CheckAuth><MyCart/></CheckAuth>},
+        { path: '/order', element: <CheckAuth><Order/></CheckAuth>}
       ]
     }
   ]) 

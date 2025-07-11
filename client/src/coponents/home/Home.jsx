@@ -14,6 +14,7 @@ const Home = () => {
   const [trending, setTrending] = useState([]);
   const [shopByCat, setShopByCat] = useState([]);
   const [newarrive, setNewarrive] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getShopByCategory = async () => {
     try{
@@ -21,6 +22,8 @@ const Home = () => {
       setShopByCat(categoryList.data);
     }catch(err){
       console.error('Failed to fetch category list:', err);
+    }finally {
+      setLoading(false); // Stop loading
     }
   }
 
@@ -47,13 +50,13 @@ const Home = () => {
       {/* Block 3: Features (Shipping, Payment, Return, etc.) */}
       <Feature/>
       {/* Block 4: Trending Now Section (Products on Sale) */}
-      <ProductCrousalSection headerCaption={'Trending Now'} products={trending} dataSection=''/> 
+      <ProductCrousalSection headerCaption={'Trending Now'} products={trending} loader={loading} dataSection=''/> 
       {/* Block 5: Shop By Categories Section */}
-      <CategoryCrousalSection headerCaption={'Shop By Categories'} catrgories={shopByCat.categoryList} dataSection=''/>
+      <CategoryCrousalSection headerCaption={'Shop By Categories'} catrgories={shopByCat.categoryList} loader={loading} dataSection=''/>
       {/* Block 6: 50% OFF Promo Banner */}
       <Discount/>
       {/* Block 7: New Arrivals Section */}
-      <ProductCrousalSection headerCaption={'New Arrivals'} products={newarrive} dataSection=''/>
+      <ProductCrousalSection headerCaption={'New Arrivals'} products={newarrive} loader={loading} dataSection=''/>
       {/* Block 8: Newsletter Subscription Banner */}
       <NewsletterSection/>
       {/* Block 9: Footer */}
