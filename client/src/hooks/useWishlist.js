@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setWishlist, addToWishlist, removeFromWishlist } from '../store/wishlistSlice';
+import { addToWishlist, removeFromWishlist } from '../store/wishlistSlice';
 import axios from 'axios';
 
 const useWishlist = () => {
@@ -9,11 +9,11 @@ const useWishlist = () => {
 
     const inWishlist = (productId) => {
         //console.log('p-',productId)
-        return wishlist.some((item) => item._id === productId);
+        return wishlist.some((item) => item.productId === productId);
         //wishlist.some((item) => console.log(item._id));
     };
 
-    const fetchWishlist = async () => {
+    /*const fetchWishlist = async () => {
         try{
             const userId = user.id;
 
@@ -24,7 +24,7 @@ const useWishlist = () => {
         }catch(err){
             console.err('Failed to load wishlist', err);
         }
-    };
+    };*/
 
     const toggleWishlist = async (product, setToastMsg, setShowToast) => {
         try{
@@ -39,8 +39,10 @@ const useWishlist = () => {
                     }, 3000);
                 }
             } else {
-                await axios.post(`${import.meta.env.VITE_BASE_URL}/client/api/addtowishlist`, {productId: product._id, userId: user.user.id});
-                dispatch(addToWishlist(product));
+                const addCartData = await axios.post(`${import.meta.env.VITE_BASE_URL}/client/api/addtowishlist`, {productId: product._id, userId: user.user.id});
+                // need to change
+                console.log(addCartData.data.saveData);
+                dispatch(addToWishlist(addCartData.data.saveData));
                 if(setToastMsg && setShowToast ){
                     setToastMsg("Item added to wishlist");
                     setShowToast(true);
@@ -58,7 +60,7 @@ const useWishlist = () => {
         wishlist,
         inWishlist,
         toggleWishlist,
-        fetchWishlist
+        //fetchWishlist
     }
 
 };

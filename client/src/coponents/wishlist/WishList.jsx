@@ -16,7 +16,6 @@ const WishList = () => {
           params
         }
       );
-      //console.log(getWishList.data.myWishlist)
       setUserWishList(getWishList.data);
     }catch(err){
       setUserWishList([]);
@@ -28,11 +27,25 @@ const WishList = () => {
   },[user])
 
   return (
-    <div className='min-h-96 place-items-center'>
-      <ul className="list bg-base-200 rounded-box shadow-md my-20 mx-20 w-2/3">
-        <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">My Wishlist</li>
-        {userWishList?.myWishlist?.map((wList) => <WishListRow key={wList._id} myWish={wList}/>) }
-      </ul>
+    <div className="p-6 bg-base-100 ">
+      <div className="max-w-7xl mx-auto bg-base-300 rounded-lg">
+        
+        <div className="flex flex-col lg:flex-row gap-8 items-start py-5 px-5">
+
+            <div className="flex-1">
+            <h1 className="text-2xl font-bold mb-4">YOUR WISHLIST <span className="text-sm font-normal">{userWishList?.myWishlist?.length} ITEM</span></h1>
+            <div className="divider"></div>
+            
+              {userWishList?.myWishlist?.map((wList) => <WishListRow key={wList._id} myWish={wList}/>) }
+
+            <div className="mt-6">
+              <p className="mt-2 flex items-center text-sm">
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }

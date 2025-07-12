@@ -11,7 +11,7 @@ const CartListRow = ({cartItem}) => {
               <div className="flex-1 space-y-1">
                 <h2 className="font-semibold text-lg">{productName}</h2>
                 <p>Gender: Women's Jewellary</p>
-                <p>Code: {productCode}</p>
+                <p>Code:  <h4 className='btn btn-active btn-secondary btn-sm ml-2'>{productCode}</h4></p>
                 <p>Type: {typeName} <span className="text-green-600">In Stock ✓</span></p>
                 <div className="flex gap-4 text-sm text-gray-600 underline mt-1">
                   <a href="#">Delete</a>

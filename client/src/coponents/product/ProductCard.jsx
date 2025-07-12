@@ -15,7 +15,7 @@ const ProductCard = ({product}) => {
 
   const { _id, productName, productPhoto, categoryId, productPrice, offerPrice, productCode, productQuantity, productStatus } = product;
 
-  //console.log(productPhoto);
+  console.log(_id);
 
 
 
