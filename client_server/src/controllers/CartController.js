@@ -10,7 +10,7 @@ const addToCart = async (req, res) => {
 
         const prodDetail = await Product.find({_id: productId}).populate({path: 'typeId', select: 'typeName'});
 
-        //console.log(prodDetail[0].porductCode)
+        //console.log(prodDetail[0].productCode)
 
         //if(itemInCart){
             if(itemInCart.length > 0){
@@ -25,7 +25,7 @@ const addToCart = async (req, res) => {
                 );
 
                 if(updCart){
-                    res.status(200).json({status:true, message:'Item Added to the Cart', cartItem: {_id: itemInCart[0]._id, productId:productId, itemQuantity:newQty, userId: userId, productCode: prodDetail[0].productCode, productType: prodDetail[0].typeId.typeName, productPhoto: prodDetail[0].productId.productPhoto, productPrice: prodDetail[0].productId.productPrice, productName: prodDetail[0].productId.productName}});
+                    res.status(200).json({status:true, message:'Item Added to the Cart', cartItem: {_id: itemInCart[0]._id, productId:productId, itemQuantity:newQty, userId: userId, productCode: prodDetail[0].productCode, productType: prodDetail[0].typeId.typeName, productPhoto: prodDetail[0].productPhoto, productPrice: prodDetail[0].productPrice, productName: prodDetail[0].productName}});
                 }else{
                     res.status(200).json({status:false, message:'Item Not Added'});
                 }
@@ -40,7 +40,7 @@ const addToCart = async (req, res) => {
                 const insertedId = saveCart._id;
 
                 if(saveCart){
-                    res.status(200).json({status:true, message:'Item Added to the Cart', cartItem: {_id: insertedId, productId:productId, itemQuantity:itemQuantity, userId: userId, productCode: prodDetail[0].productCode, productType: prodDetail[0].typeId.typeName, productPhoto: prodDetail[0].productId.productPhoto, productPrice: prodDetail[0].productId.productPrice, productName: prodDetail[0].productId.productName}});
+                    res.status(200).json({status:true, message:'Item Added to the Cart', cartItem: {_id: insertedId, productId:productId, itemQuantity:itemQuantity, userId: userId, productCode: prodDetail[0].productCode, productType: prodDetail[0].typeId.typeName, productPhoto: prodDetail[0].productPhoto, productPrice: prodDetail[0].productPrice, productName: prodDetail[0].productName}});
                 }else{
                     res.status(200).json({status:false, message:'Item Not Added'});
                 }

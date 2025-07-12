@@ -42,7 +42,21 @@ const LoginModal = ({ onClose }) => {
                 setTimeout(() => {
                     dispatch(addUser(userData));
                     userWishlist.map((uw) => dispatch(addToWishlist(uw)));
-                    userCart.map((uc) => dispatch(addToCart(uc)));
+                    userCart.map((uc) => {
+                        const cartItem = {
+                            _id: uc._id,
+                            productId: uc.productId._id,
+                            itemQuantity: uc.itemQuantity,
+                            userId: uc.userId,
+                            productCode: uc.productId.productCode,
+                            productName: uc.productId.productName,
+                            productPhoto: uc.productId.productPhoto,
+                            productPrice: uc.productId.productPrice,
+                            productType: uc.productId.typeId.typeName,
+                        };
+
+                        dispatch(addToCart(cartItem));
+                    });
                     
                     setShowToast(false);
                 }, 3000);

@@ -21,10 +21,13 @@ const wishlistSlice = createSlice(
                 if (index !== -1) {
                     state.splice(index, 1); // ✅ removes item from the array
                 }
+            },
+            clearWishlist : () => {
+                return [];
             }
         }
     }
 )
 
-export const { setWishlist, addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { setWishlist, addToWishlist, removeFromWishlist, clearWishlist } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

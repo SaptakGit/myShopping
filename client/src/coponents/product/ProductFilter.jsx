@@ -1,34 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react';
+import useProductFilter from '../../hooks/useProductFilter';
 
 const ProductFilter = () => {
-  return (
-    <div className="card bg-base-300 rounded-box grid grow place-items-start ">
+    const { filters, loading, error } = useProductFilter();
+    const [ priceRange, setPriceRange ] = useState(1000);
+
+    if (loading) return <div>Loading filters...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    return (
+        <div className="card bg-base-300 rounded-box grid grow place-items-start ">
             <ul className="menu rounded-box w-56">
                 <li><h3 className='font-bold text-lg'>Filter</h3></li>
                 <li>
                     <details open>
-                        <summary>Price Range</summary>
+                        <summary>Price Range ₹{priceRange}</summary>
                         <ul>
                             <li>
-                                <input type="range" min={0} max="100" className="range range-xs text-blue-300 [--range-bg:orange] [--range-thumb:blue] [--range-fill:0]" />
+                                <input type="range" min={1000} max={200000} value={priceRange} onChange={(e) => setPriceRange(Number(e.target.value))} className="range range-xs text-blue-300 [--range-bg:orange] [--range-thumb:blue] [--range-fill:0]" />
                             </li>
                         </ul>
                     </details>
                 </li>
                 <li>
-                    <details open>
+                    <details>
                         <summary>Category</summary>
                         <ul>
-                            <li> 
-                                <label className="label"> Submenu 1
-                                    <input type="checkbox" className="checkbox" /> 
-                                </label>
-                            </li>
-                            <li>
-                                <label className="label"> Submenu 2
-                                    <input type="checkbox" className="checkbox" /> 
-                                </label>
-                            </li>
+                            {filters?.category?.categoryList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.categoryName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -36,7 +40,13 @@ const ProductFilter = () => {
                     <details >
                         <summary>Brand</summary>
                         <ul>
-                            <li><a>Caratelane</a></li>
+                            {filters?.brand?.brandList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.brandName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -44,8 +54,13 @@ const ProductFilter = () => {
                     <details >
                         <summary>Shape</summary>
                         <ul>
-                            <li><a>Square</a></li>
-                            <li><a>Round</a></li>
+                            {filters?.shape?.shapeList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.shapeName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -53,9 +68,13 @@ const ProductFilter = () => {
                     <details >
                         <summary>Carat</summary>
                         <ul>
-                            <li><a>2 Carat</a></li>
-                            <li><a>4 Carat</a></li>
-                            <li><a>6 Carat</a></li>
+                            {filters?.carat?.caratList?.map((item) => (
+                                <li key={item}> 
+                                    <label className="label">{item}
+                                        <input type="checkbox" className="checkbox" value={item} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -63,9 +82,13 @@ const ProductFilter = () => {
                     <details >
                         <summary>Color</summary>
                         <ul>
-                            <li><a>Blue</a></li>
-                            <li><a>Red</a></li>
-                            <li><a>Pink</a></li>
+                            {filters?.color?.colorList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.colorName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -73,9 +96,13 @@ const ProductFilter = () => {
                     <details >
                         <summary>Type</summary>
                         <ul>
-                            <li><a>Ring</a></li>
-                            <li><a>Necklace</a></li>
-                            <li><a>Ear Ring</a></li>
+                            {filters?.type?.typeList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.typeName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
@@ -83,14 +110,19 @@ const ProductFilter = () => {
                     <details >
                         <summary>Occasion</summary>
                         <ul>
-                            <li><a>Wedding</a></li>
-                            <li><a>Party</a></li>
+                            {filters?.occasion?.occasionList?.map((item) => (
+                                <li key={item._id}> 
+                                    <label className="label">{item.occasionName}
+                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                    </label>
+                                </li>
+                            )) }
                         </ul>
                     </details>
                 </li>
             </ul>
         </div>
-  )
+    )
 }
 
 export default ProductFilter

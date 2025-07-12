@@ -82,7 +82,7 @@ const clientRegister = async (req, res) => {
                 { expiresIn: '1d' }
             );
 
-            res.status(200).json({status:true, message:'Registered Successfully', token:token});
+            res.status(200).json({status:true, message:'Registered Successfully', token:token, user: clientUser, myWishList: [], myCart: []});
         }else{
             res.status(200).json({status:false, message:'Registration Failed'});
         }
@@ -103,9 +103,13 @@ const clientAuth = async (req, res) => {
 
         const decodeObj = jwt.verify(token, process.env.JWT_SERECT);
 
-        const { _id } = decodeObj;
+        const { userId } = decodeObj;
 
-        const user = await ClientUser.findOne({where: _id});
+        //console.log(_id);
+
+        const user = await ClientUser.findOne({where: userId});
+
+        //console.log(user);
 
         if(!user){
             res.status(401).json({status:false, message:'User not found'});

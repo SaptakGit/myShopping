@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../../store/userSlice';
+import { clearWishlist } from '../../store/wishlistSlice';
+import { clearCart } from '../../store/cartSlice';
 import { Link } from 'react-router-dom';
 
 
 const NavbarProfile = () => {
+
+  const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch()
   const [showToast, setShowToast] = useState(false);
@@ -14,8 +18,10 @@ const NavbarProfile = () => {
     try{
       localStorage.removeItem('token');
       setShowToast(true);
-      setToastMsg('Logged out Successfully!!');
+      setToastMsg('Logged out Successfully!!'); 
       setTimeout(() => {
+        dispatch(clearWishlist());
+        dispatch(clearCart());
         dispatch(removeUser());
         setShowToast(false);
       }, 2000);
@@ -45,7 +51,7 @@ const NavbarProfile = () => {
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
             <li>
               <a className="justify-between"> Profile
-                <span className="badge">New</span>
+                <span className="badge">{user.user.name}</span>
               </a>
             </li>
             <li><a>Settings</a></li>
