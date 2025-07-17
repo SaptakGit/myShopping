@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     },
     filename:(req, file, cb) => {
         const uName = req.body.userName.trim().replace(/\s+/g, '_');
-        const uniqueName = Date.now()+'-'+uName+path.extname(file.originalname); 
+        const uniqueName = uName+path.extname(file.originalname); //Date.now()+'-'+
         cb(null,uniqueName)
     }
 });
