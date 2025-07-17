@@ -31,6 +31,18 @@ const clientUser = sequelize.define('client_users', {
             type: DataTypes.STRING,
             allowNull: false
         },
+        photo: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        age: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        gender: {
+            type: DataTypes.ENUM('Male', 'Female', 'Other'),
+            allowNull: true
+        },
         status:{
           type: DataTypes.INTEGER,
           allowNull: false,

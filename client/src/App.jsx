@@ -9,6 +9,7 @@ import CheckAuth from './middlewares/CheckAuth'
 import WishList from './coponents/wishlist/WishList'
 import MyCart from './coponents/cart/MyCart'
 import Order from './coponents/order/Order'
+import Profile from './coponents/users/Profile'
 
 function App() {
   const router = createBrowserRouter([
@@ -17,11 +18,12 @@ function App() {
       element: <Layout/>,
       children:[
         { path: '/', element: <CheckAuth><Home/></CheckAuth> },
-        { path: '/products', element: <CheckAuth><Product/></CheckAuth>},
-        { path: '/productdetails', element: <CheckAuth><Productdetail/></CheckAuth>},
-        { path: '/wishlist', element: <CheckAuth><WishList/></CheckAuth>},
-        { path: '/mycart', element: <CheckAuth><MyCart/></CheckAuth>},
-        { path: '/order', element: <CheckAuth><Order/></CheckAuth>}
+        { path: '/profile', element: <CheckAuth><Profile/></CheckAuth> },
+        { path: '/products', element: <CheckAuth><Product/></CheckAuth> },
+        { path: '/productdetails', element: <CheckAuth><Productdetail/></CheckAuth> },
+        { path: '/wishlist', element: <CheckAuth><WishList/></CheckAuth> },
+        { path: '/mycart', element: <CheckAuth><MyCart/></CheckAuth> },
+        { path: '/order', element: <CheckAuth><Order/></CheckAuth> }
       ]
     }
   ]) 
