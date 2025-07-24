@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useProductFilter from '../../hooks/useProductFilter';
 
-const ProductFilter = () => {
+const ProductFilter = ({ priceRange, setPriceRange, prodCategory, setProdCategory }) => {
     const { filters, loading, error } = useProductFilter();
-    const [ priceRange, setPriceRange ] = useState(1000);
 
     if (loading) return <div>Loading filters...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -29,7 +28,14 @@ const ProductFilter = () => {
                             {filters?.category?.categoryList?.map((item) => (
                                 <li key={item._id}> 
                                     <label className="label">{item.categoryName}
-                                        <input type="checkbox" className="checkbox" value={item._id} /> 
+                                        <input type="checkbox" className="checkbox" value={item._id} onChange={(e) => {
+                                            const value = e.target.value;
+                                            if (e.target.checked) {
+                                                setProdCategory((prev) => [...prev, value]);
+                                            } else {
+                                                setProdCategory((prev) => prev.filter(id => id !== value));
+                                            }
+                                        }} /> 
                                     </label>
                                 </li>
                             )) }

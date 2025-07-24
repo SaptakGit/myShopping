@@ -24,8 +24,6 @@ const CheckAuth = (props) => {
             const userWishlist = res.data.myWishList;
             const userCart = res.data.myCart;
 
-            //console.log(userCart)
-
             if(res.data.status){
                 dispatch(addUser(userData));
                 userWishlist.map((uw) => dispatch(addToWishlist(uw)));

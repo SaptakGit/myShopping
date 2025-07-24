@@ -8,23 +8,8 @@ const useWishlist = () => {
     const user = useSelector((state) => state.user);
 
     const inWishlist = (productId) => {
-        //console.log('p-',productId)
         return wishlist.some((item) => item.productId === productId);
-        //wishlist.some((item) => console.log(item._id));
     };
-
-    /*const fetchWishlist = async () => {
-        try{
-            const userId = user.id;
-
-            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/client/api/mywishlist`,
-                { userId: userId }
-            );
-            dispatch(setWishlist(res.data.wishlist));
-        }catch(err){
-            console.err('Failed to load wishlist', err);
-        }
-    };*/
 
     const toggleWishlist = async (product, setToastMsg, setShowToast) => {
         try{
@@ -41,7 +26,6 @@ const useWishlist = () => {
             } else {
                 const addCartData = await axios.post(`${import.meta.env.VITE_BASE_URL}/client/api/addtowishlist`, {productId: product._id, userId: user.user.id});
                 // need to change
-                console.log(addCartData.data.saveData);
                 dispatch(addToWishlist(addCartData.data.saveData));
                 if(setToastMsg && setShowToast ){
                     setToastMsg("Item added to wishlist");
@@ -60,7 +44,6 @@ const useWishlist = () => {
         wishlist,
         inWishlist,
         toggleWishlist,
-        //fetchWishlist
     }
 
 };

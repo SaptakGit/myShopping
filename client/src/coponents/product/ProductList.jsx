@@ -8,9 +8,13 @@ import ProductShimmer from "../../utlis/ProductShimmer";
 
 const ProductList = () => {
 
-  const [ productList, setProductList ] = useState([])
-  const [ searchParams ] = useSearchParams()
+  const [ productList, setProductList ] = useState([]);
+  const [ searchParams ] = useSearchParams();
   const [ loading, setLoading ] = useState(true);
+
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState(1000);
+  const [prodCategory, setProdCategory] = useState([]);
 
   const categoryId = searchParams.get('category')
 
@@ -23,7 +27,10 @@ const ProductList = () => {
       const prodList = await axios.get(`${import.meta.env.VITE_BASE_URL}/client/api/productlist`,
         { params }
       );
-      setProductList(prodList.data)
+      
+      setProductList(prodList.data);
+      setFilteredProducts(prodList.data.productList);
+
     }catch(err){
       console.log(err)
     }finally {
@@ -32,14 +39,31 @@ const ProductList = () => {
   }
 
   useEffect(() => {
-    getProductList(categoryId)
-  },[categoryId])
+      getProductList(categoryId);
+  },[categoryId]);
+
+  useEffect(() => {
+  if (productList?.productList) {
+    const filtered = productList.productList
+      .filter((p) => p.productPrice >= priceRange)
+      .filter((p) => {
+        // if no category selected, show all
+        if (prodCategory.length === 0) return true;
+
+        // handle if p.categoryId is string or object
+        const categoryId = typeof p.categoryId === 'object' ? p.categoryId._id : p.categoryId;
+
+        return prodCategory.includes(String(categoryId));
+      });
+    setFilteredProducts(filtered);
+  }
+}, [priceRange, prodCategory]);
 
   return (
     <div className="m-5">
       <ProductBanner/>
       <div className="flex my-5">
-        <ProductFilter />
+        <ProductFilter priceRange={priceRange} setPriceRange={setPriceRange} prodCategory={prodCategory} setProdCategory={setProdCategory} />
         <div className="divider divider-horizontal"></div>
         <div className="card bg-base-300 rounded-box grid grow place-items-center justify-center w-full">
           <div className=''>
@@ -50,7 +74,7 @@ const ProductList = () => {
                   <ProductShimmer key={idx} />
                 ))
               ) : 
-              (productList?.productList?.map((product) => <ProductCard product={product} key={product._id} />) )}
+              (filteredProducts?.map((product) => <ProductCard product={product} key={product._id} />) )}
             </div>
           </div>
         </div>

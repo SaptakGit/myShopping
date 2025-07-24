@@ -15,10 +15,6 @@ const ProductCard = ({product}) => {
 
   const { _id, productName, productPhoto, categoryId, productPrice, offerPrice, productCode, productQuantity, productStatus } = product;
 
-  console.log(_id);
-
-
-
   const wishlisted = inWishlist(_id);
 
   const handleAddToWishList = () => {

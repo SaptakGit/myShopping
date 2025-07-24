@@ -104,10 +104,6 @@ const clientUpdateProfile = async (req, res) => {
         const { userId, userName, userPhone, userAge, userGender, userAddress } = req.body;
 
         const userPhoto = req.file.path.replace(/\\/g, '/');
-        
-        /*if(!userName || !req.file){
-            return res.status(400).json({messae: 'User name and Photo is required'});
-        }*/
    
         const saveData = ClientUser.update(
             {

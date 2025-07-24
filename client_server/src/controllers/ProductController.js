@@ -31,8 +31,6 @@ const productDetail = async (req, res) => {
     try{
         const { productId } = req.query
 
-        //console.log(productId)
-
         const filters = [
             { _id: productId },
             { productStatus: true }
