@@ -4,6 +4,7 @@ import { removeUser } from '../../store/userSlice';
 import { clearWishlist } from '../../store/wishlistSlice';
 import { clearCart } from '../../store/cartSlice';
 import { Link } from 'react-router-dom';
+import { DEMO_USER_IMG } from '../../utlis/constant';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 

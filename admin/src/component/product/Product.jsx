@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from 'axios'
 import ProductListRow from "./ProductListRow";
 import ProductListPagination from "./ProductListPagination";
-import api from '../../utlis/api'
+import api from '../../utlis/api';
 
 const Product = () => {
 
@@ -25,7 +25,7 @@ const Product = () => {
             }
           }
         );
-
+        //console.log(res);
         setProductList(res);
         setTotalProduct(res.data.totalProductList);
         setProdListLimit(res.data.offset);
