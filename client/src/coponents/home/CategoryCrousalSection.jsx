@@ -22,7 +22,7 @@ const CategoryCrousalSection = ({headerCaption, catrgories = [], loader}) => {
                 640: { slidesPerView: 1.5 },
                 768: { slidesPerView: 2.5 },
                 1024: { slidesPerView: 3.5 },
-                1280: { slidesPerView: 4 },
+                1280: { slidesPerView: 5 },
                 }}
                 className="pb-5"
             >
